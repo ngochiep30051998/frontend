@@ -1,0 +1,40 @@
+<header>
+    <div class="d-flex justify-content-center header-top">
+        <div class="p-2 logo">
+            <img src="../../../assets/logo/logo-cut.png">
+        </div>
+        <div class="p-2 search">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-12 ui-md-12">
+                    <div class="ui-inputgroup">
+                        <input style="width: 100%;" type="text" pInputText placeholder="Keyword">
+                        <button pButton type="button" icon="fa fa-search" class="ui-button-warn"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="p-2 right-item">
+            <div class="d-flex justify-content-end">
+                <div class="p-1">
+                    <a class="nav-link">Sigh up</a>
+                </div>
+                <div class="p-1 ">
+                    <a class="nav-link">Login</a>
+                </div>
+                <div class="p-1">
+                    <a class="nav-link">
+                        <i class="fa fa-shopping-cart fa-lg"></i>
+                        <span class="badge badge-pill badge-danger">5</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center top-menu">
+        <div class="p-1 menu-icon">
+            <p-megaMenu [model]="items">
+
+            </p-megaMenu>
+        </div>
+    </div>
+</header>

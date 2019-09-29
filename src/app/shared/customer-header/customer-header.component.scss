@@ -1,0 +1,32 @@
+header{
+    background-color: rgb(255,255,255);
+    box-shadow: 0 0 10px -5px #444;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    .header-top{
+        .logo{
+            width: 20%;
+            height: 100%;
+            img{
+                height: 3.5em;
+            }
+        }
+        .search{
+            width: 40%;
+        }
+        .right-item{
+            width: 20%;
+        }
+    }
+    .top-menu{
+        .menu-icon{
+            width: 70%;
+            text-align: center;
+        }
+
+    }
+
+}

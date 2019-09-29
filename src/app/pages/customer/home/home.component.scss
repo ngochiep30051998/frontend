@@ -1,0 +1,14 @@
+.top-content{
+    .left-content{
+        width: 65%;
+        min-height: 350px;
+        box-shadow: 0 0 10px -5px #444;
+        img{
+            height: 350px;
+        }
+    }
+    .right-content{
+        box-shadow: 0 0 10px -5px #444;
+        width: 34%;
+    }
+}
