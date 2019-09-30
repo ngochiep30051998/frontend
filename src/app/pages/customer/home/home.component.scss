@@ -1,14 +1,21 @@
 .top-content{
-    .left-content{
-        width: 65%;
+    .right-content{
+        width: 78%;
         min-height: 350px;
         box-shadow: 0 0 10px -5px #444;
         img{
             height: 350px;
         }
     }
-    .right-content{
+    .left-content{
         box-shadow: 0 0 10px -5px #444;
-        width: 34%;
+        width: 21%;
+    }
+}
+
+.center-content {
+    width: 100%;
+    .ui-carousel-item{
+        width: 20% !important;
     }
 }
