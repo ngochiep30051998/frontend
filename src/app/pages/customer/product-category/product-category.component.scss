@@ -1,0 +1,20 @@
+.content{
+    margin-top: 10px;
+    .left-menu{
+        width: 21%;
+        .ui-megamenu{
+            height: auto !important;
+        }
+    }
+    .right-content{
+        width: 78%;
+        min-height: 350px;
+        box-shadow: 0 0 10px -5px #444;
+        .product-card{
+            width: 200px;
+            margin: 1%;
+            padding: .5rem;
+            box-shadow: 0 0 10px -5px #444;
+        }
+    }
+}

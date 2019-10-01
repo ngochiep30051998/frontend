@@ -7,8 +7,28 @@
 // If you want to add something do it here
 @import "custom";
 
-.ui-megamenu{
-    border: none !important;
-    width: 100% !important;
-    height: 100%;
+.left-content{
+    .ui-megamenu{
+        border: none !important;
+        width: 100% !important;
+        height: 100%;
+    }
 }
+
+.left-menu{
+    .ui-megamenu{
+        border: none !important;
+        width: 100% !important;
+        height: auto;
+    }
+}
+
+// .product-card{
+//     width: 30%;
+//     margin: 1%;
+//     padding: .5rem;
+//     box-shadow: 0 0 10px -5px #444;
+//     .ui-card{
+//         width: 100%;
+//     }
+// }
