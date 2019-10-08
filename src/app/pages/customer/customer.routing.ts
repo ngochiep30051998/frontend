@@ -22,6 +22,10 @@ export const routes: Routes = [
         path: 'product-category',
         loadChildren: () => import('../customer/product-category/product-category.module').then(m => m.ProductCategoryModule)
       },
+      {
+        path: 'product-detail',
+        loadChildren: () => import('../customer/product-detail/product-detail.module').then(m => m.ProductDetailModule)
+      }
     ]
   },
 ];
