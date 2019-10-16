@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Import Containers
 import { DefaultLayoutComponent } from './containers';
-import { AppComponent } from './app.component';
 
 export const routes: Routes = [
   {
@@ -35,12 +34,21 @@ export const routes: Routes = [
         loadChildren: () => import('./pages/customer/customer.module').then(m => m.CustomerModule)
       }
     ]
+  },
+  {
+    path: 'admin',
+    children: [
+      {
+        path: 'login',
+        loadChildren: () => import('./pages/admin/login/login.module').then(m => m.LoginModule)
+      }
+    ]
   }
 
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -32,6 +32,10 @@ export const routes: Routes = [
       }
     ]
   },
+  {
+    path: 'login',
+    loadChildren: () => import('../customer/login/login.module').then(m => m.LoginModule)
+  }
 ];
 
 @NgModule({
