@@ -18,11 +18,11 @@ export const USER_ROLES = [
 
 export const ADMIN = {
     id: 1,
-    name: 'admin'
+    name: 'Admin'
 };
 
 export const SUPER_ADMIN = {
     id: 2,
-    name: 'super admin'
+    name: 'SupperAdmin'
 };
 

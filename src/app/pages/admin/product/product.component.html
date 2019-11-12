@@ -1,1 +1,84 @@
-<p-dropdown [options]="cities1" [(ngModel)]="selectedCity1"></p-dropdown>
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Thêm sản phẩm</strong>
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="sku">Mã sản phẩm</label>
+              <div class="col-md-5">
+                <input type="text" id="sku" name="sku" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="name">Tên sản phẩm</label>
+              <div class="col-md-9">
+                <input type="text" id="name" name="name" class="form-control" placeholder="Tên sản phẩm">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="catalogId">Loại sản phẩm</label>
+              <div class="col-md-9">
+                <select id="catalogId" name="catalogId" class="form-control">
+                  <option value="0">Please select</option>
+                  <option value="1">Option #1</option>
+                  <option value="2">Option #2</option>
+                  <option value="3">Option #3</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="textarea-input">Nội dung</label>
+              <div class="col-md-9">
+                <p-editor [style]="{'height':'320px'}"></p-editor>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="name">Đơn giá</label>
+              <div class="col-md-5">
+                <input type="number" id="price" name="price" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="sku">Giảm giá</label>
+              <div class="col-md-5">
+                <input type="number" id="promotionPrice" name="promotionPrice" class="form-control">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="amount">amount</label>
+              <div class="col-md-5">
+                <input type="number" id="amount" name="amount" class="form-control">
+              </div>
+            </div>
+           
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="topFeature">Tính năng nổi bật</label>
+              <div class="col-md-9">
+                <textarea id="topFeature" name="topFeature" rows="9" class="form-control" placeholder="Tính năng nổi bật"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="image">Ảnh chính</label>
+              <div class="col-md-9">
+                <input type="file" id="image" name="image">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label" for="imageList">Ảnh Phụ</label>
+              <div class="col-md-9">
+                <input type="file" id="imageList" name="imageList" multiple>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
+          <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </div>
+  </div><!--/.row-->

@@ -24,6 +24,10 @@ export const routes: Routes = [
         path: 'dashboard',
         loadChildren: () => import('../admin/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
+      {
+        path: 'product-management',
+        loadChildren: () => import('../admin/product-management/product-management.module').then(m => m.ProductManagementModule)
+      }
     ]
   },
 ];

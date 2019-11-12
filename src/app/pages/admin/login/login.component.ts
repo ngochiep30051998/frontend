@@ -3,6 +3,7 @@ import { ApiService } from '../../../services/api/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { USER_ROLES, ADMIN, SUPER_ADMIN } from '../../../constants/constant';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
     constructor(
         private apiService: ApiService,
         private formBuilder: FormBuilder,
-        private router: Router
+        private router: Router,
+        private messageService: MessageService
     ) { }
 
     ngOnInit() {
@@ -36,14 +38,14 @@ export class LoginComponent implements OnInit {
                 return;
             }
             const res: any = await this.apiService.login(user);
-            console.log(res)
             if (res.customer.roles.find(x => x.Name === ADMIN.name) || res.customer.roles.find(x => x.Name === SUPER_ADMIN.name)) {
                 localStorage.setItem('adminInfo', JSON.stringify({ data: res.customer }));
+                this.messageService.add({ severity: 'success', summary: 'Đăng nhập thành công' });
                 this.router.navigate(['admin/dashboard']);
             }
 
         } catch (e) {
-            console.log(e);
+            this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công', detail: e.error.message });
         }
     }
     get f() { return this.loginForm.controls; }

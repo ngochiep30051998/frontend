@@ -36,7 +36,7 @@ export class DefaultLayoutComponent implements OnDestroy {
       this.router.navigate(['admin/login']);
       localStorage.removeItem('adminInfo');
     } catch (e) {
-      console.log(e);
+      console.log(e.error.message);
     }
   }
   ngOnDestroy(): void {

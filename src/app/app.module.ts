@@ -38,6 +38,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonHttpInterceptor } from './interceptor/common.intercepter';
+import { MessageService } from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
 @NgModule({
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ import { CommonHttpInterceptor } from './interceptor/common.intercepter';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule
   ],
   declarations: [
     AppComponent,
@@ -67,7 +70,8 @@ import { CommonHttpInterceptor } from './interceptor/common.intercepter';
     provide: HTTP_INTERCEPTORS,
     multi: true,
     useClass: CommonHttpInterceptor,
-  }
+  },
+    MessageService
   ],
   bootstrap: [AppComponent]
 })
