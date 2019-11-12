@@ -10,14 +10,14 @@ import { Router } from '@angular/router';
 })
 export class ProductManagementComponent implements OnInit {
 
-    public listProduct = [];
+    public listProduct: any[] = [];
     public currentPage = 0;
     constructor(
         private apiService: ApiService,
         public helperService: HelperService,
         public router: Router
     ) {
-        this.getListProduct(0);
+        this.getListProduct(1);
 
     }
 
