@@ -1,84 +1,105 @@
 <div class="row">
     <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <strong>Thêm sản phẩm</strong>
-        </div>
-        <div class="card-body">
-          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="sku">Mã sản phẩm</label>
-              <div class="col-md-5">
-                <input type="text" id="sku" name="sku" class="form-control">
-              </div>
+        <div class="card">
+            <div class="card-header">
+                <strong>Thêm sản phẩm</strong>
             </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="name">Tên sản phẩm</label>
-              <div class="col-md-9">
-                <input type="text" id="name" name="name" class="form-control" placeholder="Tên sản phẩm">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="catalogId">Loại sản phẩm</label>
-              <div class="col-md-9">
-                <select id="catalogId" name="catalogId" class="form-control">
-                  <option value="0">Please select</option>
-                  <option value="1">Option #1</option>
-                  <option value="2">Option #2</option>
-                  <option value="3">Option #3</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="textarea-input">Nội dung</label>
-              <div class="col-md-9">
-                <p-editor [style]="{'height':'320px'}"></p-editor>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="name">Đơn giá</label>
-              <div class="col-md-5">
-                <input type="number" id="price" name="price" class="form-control">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="sku">Giảm giá</label>
-              <div class="col-md-5">
-                <input type="number" id="promotionPrice" name="promotionPrice" class="form-control">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="amount">amount</label>
-              <div class="col-md-5">
-                <input type="number" id="amount" name="amount" class="form-control">
-              </div>
-            </div>
-           
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="topFeature">Tính năng nổi bật</label>
-              <div class="col-md-9">
-                <textarea id="topFeature" name="topFeature" rows="9" class="form-control" placeholder="Tính năng nổi bật"></textarea>
-              </div>
-            </div>
+            <div class="card-body">
+                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal"
+                    [formGroup]="productForm">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="SKU">Mã sản phẩm</label>
+                        <div class="col-md-9">
+                            <input type="text" id="SKU" formControlName="SKU" name="SKU" class="form-control">
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="productForm?.controls?.SKU?.errors?.required && productForm?.controls?.SKU?.touched">
+                            Mã sản phẩm là bắt buộc
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="Name">Tên sản phẩm</label>
+                        <div class="col-md-9">
+                            <input type="text" id="name" formControlName="Name" name="Name" class="form-control"
+                                placeholder="Tên sản phẩm">
+                        </div>
+                        <div class="text-danger"
+                            *ngIf="productForm?.controls?.Name?.errors?.required && productForm?.controls?.Name?.touched">
+                            Tên sản phẩm là bắt buộc
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label"  for="CatalogId">Loại sản phẩm</label>
+                        <div class="col-md-9">
+                            <select id="catalogId" name="CatalogId" formControlName="CatalogId" class="form-control">
+                                <option value="0">Chọn nhà sản xuất</option>
+                                <option *ngFor="let item of listProductCategory" [ngValue]="item.id">{{item?.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="textarea-input">Nội dung</label>
+                        <div class="col-md-9">
+                            <p-editor [style]="{'height':'320px'}" formControlName="Content"></p-editor>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="Price">Đơn giá</label>
+                        <div class="col-md-5">
+                            <input type="number" id="price" name="Price" formControlName="Price" class="form-control">
+                        </div>
+                    </div>
 
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="image">Ảnh chính</label>
-              <div class="col-md-9">
-                <input type="file" id="image" name="image">
-              </div>
+                    <div class="text-danger"
+                        *ngIf="productForm?.controls?.Price?.errors?.required && productForm?.controls?.Price?.touched">
+                        Đơn giá là bắt buộc
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="PromotionPrice">Giảm giá</label>
+                        <div class="col-md-5">
+                            <input type="number" id="PromotionPrice" formControlName="PromotionPrice"
+                                name="PromotionPrice" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="Image">amount</label>
+                        <div class="col-md-5">
+                            <input type="number" id="Image" formControlName="Image" name="Image"
+                                class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="topFeature">Tính năng nổi bật</label>
+                        <div class="col-md-9">
+                            <textarea id="topFeature" name="TopFeature" formControlName="TopFeature" rows="9"
+                                class="form-control" placeholder="Tính năng nổi bật"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="Image">Ảnh chính</label>
+                        <div class="col-md-9">
+                            <input type="file" id="Image" name="Image" formControlName="Image">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="ImageList">Ảnh Phụ</label>
+                        <div class="col-md-9">
+                            <input type="file" id="ImageList" name="ImageList" formControlName="ImageList" multiple>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="imageList">Ảnh Phụ</label>
-              <div class="col-md-9">
-                <input type="file" id="imageList" name="imageList" multiple>
-              </div>
+            <div class="card-footer">
+                <button type="button" class="btn btn-sm btn-primary" (click)="addProduct()" *ngIf="!productId"><i
+                        class="fa fa-dot-circle-o"></i> Thêm</button>
+                <button type="button" class="btn btn-sm btn-primary" *ngIf="productId"><i
+                        class="fa fa-dot-circle-o"></i>
+                    Sửa</button>
+                <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Hủy</button>
             </div>
-          </form>
         </div>
-        <div class="card-footer">
-          <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Submit</button>
-          <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button>
-        </div>
-      </div>
     </div>
-  </div><!--/.row-->
+</div>
+<!--/.row-->

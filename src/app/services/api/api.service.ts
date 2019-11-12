@@ -33,8 +33,8 @@ export class ApiService {
             });
         });
     }
-    getALlProduct() {
-        const url = this.url + 'product/list-product';
+    getALlProduct(page: any) {
+        const url = `${this.url}product/list-product?page=${page}`;
         return this.http.get(url);
         // return new Promise((resolve, reject) => {
         //     this.http.get(url).subscribe(res => {
@@ -43,5 +43,16 @@ export class ApiService {
         //         reject(err);
         //     });
         // });
+    }
+
+    addProduct(product: any) {
+        const url = this.url + 'product/add-new-product';
+        return new Promise((resolve, reject) => {
+            this.http.post(url, product).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
     }
 }

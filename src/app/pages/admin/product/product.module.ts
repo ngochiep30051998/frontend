@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProductComponent } from './product.component';
 import { RouterModule } from '@angular/router';
 import {DropdownModule} from 'primeng/dropdown';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {EditorModule} from 'primeng/editor';
 
 @NgModule({
@@ -13,6 +13,7 @@ import {EditorModule} from 'primeng/editor';
     DropdownModule,
     FormsModule,
     EditorModule,
+    ReactiveFormsModule,
     RouterModule.forChild([{ path: '', component: ProductComponent }])
   ]
 })

@@ -40,6 +40,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CommonHttpInterceptor } from './interceptor/common.intercepter';
 import { MessageService } from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -55,7 +57,8 @@ import {ToastModule} from 'primeng/toast';
     TabsModule.forRoot(),
     ChartsModule,
     HttpClientModule,
-    ToastModule
+    ToastModule,
+    NgxSpinnerModule
   ],
   declarations: [
     AppComponent,
