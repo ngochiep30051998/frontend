@@ -13,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let product of listProduct.data; let i = index;">
+            <tr *ngFor="let product of listProduct?.data; let i = index;">
                 <th scope="row">{{i+1}}</th>
                 <td>{{product.SKU}}</td>
                 <td>{{product.Name}}</td>

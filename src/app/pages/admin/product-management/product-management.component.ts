@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ProductManagementComponent implements OnInit {
 
-    public listProduct: any[] = [];
+    public listProduct: any;
     public currentPage = 0;
     constructor(
         private apiService: ApiService,
