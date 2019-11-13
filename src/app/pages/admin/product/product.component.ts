@@ -15,7 +15,8 @@ export class ProductComponent implements OnInit {
     public productForm: FormGroup;
     public productId: any;
     public image: File;
-    public imageList: FileList;
+    public imageList: File;
+    public product: any;
     public listProductCategory = [
         {
             id: 1,
@@ -39,14 +40,15 @@ export class ProductComponent implements OnInit {
     ) {
         this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
         this.initForm();
+
     }
 
     ngOnInit() {
     }
 
-    initForm() {
-        if (this.productId) {
-            console.log('update')
+    async initForm() {
+        try {
+            this.helperService.showLoading();
             this.productForm = this.formBuilder.group({
                 sku: ['', Validators.required],
                 name: ['', Validators.required],
@@ -59,21 +61,27 @@ export class ProductComponent implements OnInit {
                 image: [null],
                 imageList: [null]
             });
-        } else {
-            console.log('add')
-            this.productForm = this.formBuilder.group({
-                sku: ['', Validators.required],
-                name: ['', Validators.required],
-                content: [''],
-                price: [0, Validators.required],
-                catalogId: [],
-                promotionPrice: [],
-                amount: [],
-                topFeature: [''],
-                image: [null],
-                imageList: [null]
-            });
+            if (this.productId) {
+                const res: any = await this.apiService.getProductById(this.productId);
+                this.productForm.patchValue({
+                    sku: res.data.SKU,
+                    name: res.data.Name,
+                    content: res.data.Content,
+                    price: res.data.Price,
+                    catalogId: res.data.CatalogId,
+                    promotionPrice: res.data.PromotionPrice,
+                    amount: res.data.Amount,
+                    topFeature: res.data.TopFeature,
+                });
+                // console.log(this.product)
+            }
+            this.helperService.hideLoading();
+
+        } catch (e) {
+            console.log(e);
+            this.helperService.hideLoading();
         }
+
     }
 
 
@@ -86,6 +94,7 @@ export class ProductComponent implements OnInit {
             const res = await this.apiService.addProduct(product);
             this.helperService.hideLoading();
         } catch (e) {
+            console.log(e)
             this.helperService.hideLoading();
         }
     }

@@ -64,7 +64,7 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="image">amount</label>
                         <div class="col-md-5">
-                            <input type="number" id="image" formControlName="image" name="image"
+                            <input type="number" id="image" formControlName="amount" name="image"
                                 class="form-control">
                         </div>
                     </div>
@@ -72,8 +72,9 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="topFeature">Tính năng nổi bật</label>
                         <div class="col-md-9">
-                            <textarea id="topFeature" name="topFeature" formControlName="topFeature" rows="9"
-                                class="form-control" placeholder="Tính năng nổi bật"></textarea>
+                            <!-- <textarea id="topFeature" name="topFeature" formControlName="topFeature" rows="9"
+                                class="form-control" placeholder="Tính năng nổi bật"></textarea> -->
+                                <p-editor [style]="{'height':'320px'}" formControlName="topFeature"></p-editor>
                         </div>
                     </div>
 

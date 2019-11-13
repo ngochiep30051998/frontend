@@ -34,7 +34,7 @@ export class ApiService {
         });
     }
     getALlProduct(page: any) {
-        const url = `${this.url}product/list-product?page=${page}`;
+        const url = page !== 0 ? `${this.url}product/list-product?page=${page}` : `${this.url}product/list-product`;
         return this.http.get(url);
         // return new Promise((resolve, reject) => {
         //     this.http.get(url).subscribe(res => {
@@ -48,18 +48,33 @@ export class ApiService {
     addProduct(product: any) {
         const url = this.url + 'product/add-new-product';
         const formData: FormData = new FormData();
-        formData.append('Amount', product.Amount);
-        formData.append('CatalogId', product.CatalogId);
-        formData.append('Content', product.Content);
-        formData.append('Image', product.Image);
-        formData.append('ImageList', product.ImageList);
-        formData.append('Name', product.Name);
-        formData.append('Price', product.Price);
-        formData.append('PromotionPrice', product.PromotionPrice);
-        formData.append('SKU', product.SKU);
-        formData.append('TopFeature', product.TopFeature);
+        formData.append('amount', product.amount);
+        formData.append('catalogId', product.catalogId);
+        formData.append('content', product.content);
+        formData.append('image', product.image);
+        for (const key in product.imageList) {
+            if (product.imageList[key]) {
+                formData.append('imageList', product.imageList[key]);
+            }
+        }
+        formData.append('name', product.name);
+        formData.append('price', product.price);
+        formData.append('promotionPrice', product.promotionPrice);
+        formData.append('sku', product.sku);
+        formData.append('topFeature', product.topFeature);
         return new Promise((resolve, reject) => {
             this.http.post(url, formData).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
+
+    getProductById(productId: any) {
+        const url = `${this.url}product/product-details/${productId}`;
+        return new Promise((resolve, reject) => {
+            this.http.get(url).subscribe(res => {
                 resolve(res);
             }, err => {
                 reject(err);

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { USER_ROLES, ADMIN, SUPER_ADMIN } from '../../../constants/constant';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { HelperService } from '../../../services/helper.service';
 
 @Component({
     selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
         private apiService: ApiService,
         private formBuilder: FormBuilder,
         private router: Router,
-        private messageService: MessageService
+        private messageService: MessageService,
+        public helperService: HelperService
     ) { }
 
     ngOnInit() {
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit {
     }
     async login() {
         try {
+            this.helperService.showLoading();
             const user = this.loginForm.value;
             if (this.loginForm.invalid) {
                 return;
@@ -40,12 +43,14 @@ export class LoginComponent implements OnInit {
             const res: any = await this.apiService.login(user);
             if (res.customer.roles.find(x => x.Name === ADMIN.name) || res.customer.roles.find(x => x.Name === SUPER_ADMIN.name)) {
                 localStorage.setItem('adminInfo', JSON.stringify({ data: res.customer }));
-                this.messageService.add({ severity: 'success', summary: 'Đăng nhập thành công' });
+                // this.messageService.add({ severity: 'success', summary: 'Đăng nhập thành công' });
                 this.router.navigate(['admin/dashboard']);
             }
+            this.helperService.hideLoading();
 
         } catch (e) {
             this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công', detail: e.error.message });
+            this.helperService.hideLoading();
         }
     }
     get f() { return this.loginForm.controls; }

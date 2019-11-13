@@ -12,12 +12,14 @@ export class ProductManagementComponent implements OnInit {
 
     public listProduct: any;
     public currentPage = 0;
+    public totalPage = [];
+    public totalItem = 0;
     constructor(
         private apiService: ApiService,
         public helperService: HelperService,
         public router: Router
     ) {
-        this.getListProduct(1);
+        this.getListProduct(0);
 
     }
 
@@ -27,15 +29,17 @@ export class ProductManagementComponent implements OnInit {
     getListProduct(page: any) {
         this.helperService.showLoading();
         this.apiService.getALlProduct(page).subscribe((res: any) => {
-            console.log(res);
-            this.listProduct = res;
+            this.listProduct = res.data.listProduct;
+            this.totalPage = Array(res.data.pageAmount).fill(0).map((x, i) => i);
+            this.totalItem = res.data.pageAmount * 20;
+            this.currentPage = res.data.currentPage;
             this.helperService.hideLoading();
         }, err => {
             this.helperService.hideLoading();
         });
     }
 
-    goToProductDetail(id: any) {
-        this.router.navigate(['']);
+    goToProductDetail(productId: any) {
+        this.router.navigate(['admin/product', productId]);
     }
 }
