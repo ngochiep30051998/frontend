@@ -14,6 +14,8 @@ export class ProductComponent implements OnInit {
     public text = '';
     public productForm: FormGroup;
     public productId: any;
+    public image: File;
+    public imageList: FileList;
     public listProductCategory = [
         {
             id: 1,
@@ -46,30 +48,30 @@ export class ProductComponent implements OnInit {
         if (this.productId) {
             console.log('update')
             this.productForm = this.formBuilder.group({
-                SKU: ['', Validators.required],
-                Name: ['', Validators.required],
-                Content: [''],
-                Price: [0, Validators.required],
-                CatalogId: [],
-                PromotionPrice: [],
-                Amount: [],
-                TopFeature: [''],
-                Image: [],
-                ImageList: []
+                sku: ['', Validators.required],
+                name: ['', Validators.required],
+                content: [''],
+                price: [0, Validators.required],
+                catalogId: [],
+                promotionPrice: [],
+                amount: [],
+                topFeature: [''],
+                image: [null],
+                imageList: [null]
             });
         } else {
             console.log('add')
             this.productForm = this.formBuilder.group({
-                SKU: ['', Validators.required],
-                Name: ['', Validators.required],
-                Content: [''],
-                Price: [0, Validators.required],
-                CatalogId: [],
-                PromotionPrice: [],
-                Amount: [],
-                TopFeature: [''],
-                Image: [],
-                ImageList: []
+                sku: ['', Validators.required],
+                name: ['', Validators.required],
+                content: [''],
+                price: [0, Validators.required],
+                catalogId: [],
+                promotionPrice: [],
+                amount: [],
+                topFeature: [''],
+                image: [null],
+                imageList: [null]
             });
         }
     }
@@ -82,11 +84,24 @@ export class ProductComponent implements OnInit {
             this.helperService.showLoading();
             const product = this.productForm.value;
             const res = await this.apiService.addProduct(product);
-            this.helperService.showLoading();
+            this.helperService.hideLoading();
         } catch (e) {
-            this.helperService.showLoading();
+            this.helperService.hideLoading();
         }
     }
+    onchangeImage(event) {
+        const image = (event.target as HTMLInputElement).files[0];
+        this.productForm.patchValue({
+            image: image
+        });
+    }
 
+    onchangeImageList(event) {
+        const image = (event.target as HTMLInputElement).files;
+        this.productForm.patchValue({
+            imageList: image
+        });
+        console.log(this.productForm.value)
+    }
     get f() { return this.productForm.controls; }
 }

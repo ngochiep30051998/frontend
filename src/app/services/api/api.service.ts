@@ -47,8 +47,19 @@ export class ApiService {
 
     addProduct(product: any) {
         const url = this.url + 'product/add-new-product';
+        const formData: FormData = new FormData();
+        formData.append('Amount', product.Amount);
+        formData.append('CatalogId', product.CatalogId);
+        formData.append('Content', product.Content);
+        formData.append('Image', product.Image);
+        formData.append('ImageList', product.ImageList);
+        formData.append('Name', product.Name);
+        formData.append('Price', product.Price);
+        formData.append('PromotionPrice', product.PromotionPrice);
+        formData.append('SKU', product.SKU);
+        formData.append('TopFeature', product.TopFeature);
         return new Promise((resolve, reject) => {
-            this.http.post(url, product).subscribe(res => {
+            this.http.post(url, formData).subscribe(res => {
                 resolve(res);
             }, err => {
                 reject(err);

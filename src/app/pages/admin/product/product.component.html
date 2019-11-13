@@ -8,30 +8,30 @@
                 <form action="" method="post" enctype="multipart/form-data" class="form-horizontal"
                     [formGroup]="productForm">
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="SKU">Mã sản phẩm</label>
+                        <label class="col-md-3 col-form-label" for="sku">Mã sản phẩm</label>
                         <div class="col-md-9">
-                            <input type="text" id="SKU" formControlName="SKU" name="SKU" class="form-control">
+                            <input type="text" id="SKU" formControlName="sku" name="sku" class="form-control">
                         </div>
                         <div class="text-danger"
-                            *ngIf="productForm?.controls?.SKU?.errors?.required && productForm?.controls?.SKU?.touched">
+                            *ngIf="productForm?.controls?.sku?.errors?.required && productForm?.controls?.sku?.touched">
                             Mã sản phẩm là bắt buộc
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="Name">Tên sản phẩm</label>
+                        <label class="col-md-3 col-form-label" for="name">Tên sản phẩm</label>
                         <div class="col-md-9">
-                            <input type="text" id="name" formControlName="Name" name="Name" class="form-control"
+                            <input type="text" id="name" formControlName="name" name="name" class="form-control"
                                 placeholder="Tên sản phẩm">
                         </div>
                         <div class="text-danger"
-                            *ngIf="productForm?.controls?.Name?.errors?.required && productForm?.controls?.Name?.touched">
+                            *ngIf="productForm?.controls?.name?.errors?.required && productForm?.controls?.name?.touched">
                             Tên sản phẩm là bắt buộc
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label"  for="CatalogId">Loại sản phẩm</label>
+                        <label class="col-md-3 col-form-label"  for="catalogId">Loại sản phẩm</label>
                         <div class="col-md-9">
-                            <select id="catalogId" name="CatalogId" formControlName="CatalogId" class="form-control">
+                            <select id="catalogId" name="catalogId" formControlName="catalogId" class="form-control">
                                 <option value="0">Chọn nhà sản xuất</option>
                                 <option *ngFor="let item of listProductCategory" [ngValue]="item.id">{{item?.name}}</option>
                             </select>
@@ -40,31 +40,31 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="textarea-input">Nội dung</label>
                         <div class="col-md-9">
-                            <p-editor [style]="{'height':'320px'}" formControlName="Content"></p-editor>
+                            <p-editor [style]="{'height':'320px'}" formControlName="content"></p-editor>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="Price">Đơn giá</label>
+                        <label class="col-md-3 col-form-label" for="price">Đơn giá</label>
                         <div class="col-md-5">
-                            <input type="number" id="price" name="Price" formControlName="Price" class="form-control">
+                            <input type="number" id="price" name="price" formControlName="price" class="form-control">
                         </div>
                     </div>
 
                     <div class="text-danger"
-                        *ngIf="productForm?.controls?.Price?.errors?.required && productForm?.controls?.Price?.touched">
+                        *ngIf="productForm?.controls?.price?.errors?.required && productForm?.controls?.price?.touched">
                         Đơn giá là bắt buộc
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="PromotionPrice">Giảm giá</label>
+                        <label class="col-md-3 col-form-label" for="promotionPrice">Giảm giá</label>
                         <div class="col-md-5">
-                            <input type="number" id="PromotionPrice" formControlName="PromotionPrice"
-                                name="PromotionPrice" class="form-control">
+                            <input type="number" id="promotionPrice" formControlName="promotionPrice"
+                                name="promotionPrice" class="form-control">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="Image">amount</label>
+                        <label class="col-md-3 col-form-label" for="image">amount</label>
                         <div class="col-md-5">
-                            <input type="number" id="Image" formControlName="Image" name="Image"
+                            <input type="number" id="image" formControlName="image" name="image"
                                 class="form-control">
                         </div>
                     </div>
@@ -72,21 +72,21 @@
                     <div class="form-group row">
                         <label class="col-md-3 col-form-label" for="topFeature">Tính năng nổi bật</label>
                         <div class="col-md-9">
-                            <textarea id="topFeature" name="TopFeature" formControlName="TopFeature" rows="9"
+                            <textarea id="topFeature" name="topFeature" formControlName="topFeature" rows="9"
                                 class="form-control" placeholder="Tính năng nổi bật"></textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="Image">Ảnh chính</label>
+                        <label class="col-md-3 col-form-label" for="image">Ảnh chính</label>
                         <div class="col-md-9">
-                            <input type="file" id="Image" name="Image" formControlName="Image">
+                            <input type="file" id="Image" name="image" (change)="onchangeImage($event)">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="ImageList">Ảnh Phụ</label>
+                        <label class="col-md-3 col-form-label" for="imageList">Ảnh Phụ</label>
                         <div class="col-md-9">
-                            <input type="file" id="ImageList" name="ImageList" formControlName="ImageList" multiple>
+                            <input type="file" (change)="onchangeImageList($event)" id="ImageList" name="ImageList"  multiple>
                         </div>
                     </div>
                 </form>
