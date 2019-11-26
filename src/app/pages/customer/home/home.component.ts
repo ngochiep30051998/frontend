@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CarouselConfig } from 'ngx-bootstrap/carousel';
 import { MenuItem } from 'primeng/api';
+import { ApiService } from '../../../services/api/api.service';
+import { forkJoin } from 'rxjs/internal/observable/forkJoin';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-home',
@@ -18,152 +21,81 @@ export class HomeComponent implements OnInit, OnDestroy {
     public noWrapSlides: boolean = false;
     public items: MenuItem[];
     public cars: any;
-    constructor() {
+
+    public listCatalog = [];
+    public listProvider = [];
+
+    public listproduct: any = {
+        product1: [],
+        product2: [],
+        product3: []
+    };
+    public responsiveOptions: any;
+    constructor(
+        private apiService: ApiService,
+        public router: Router
+    ) {
         for (let i = 0; i < 4; i++) {
             this.addSlide();
         }
+        // this.getListMenuItem();
 
-        this.cars = [
-            {vin: 'r3278r2', year: 2010, brand: 'Audi', color: 'Black'},
-            {vin: 'jhto2g2', year: 2015, brand: 'BMW', color: 'White'},
-            {vin: 'h453w54', year: 2012, brand: 'Honda', color: 'Blue'},
-            {vin: 'g43gwwg', year: 1998, brand: 'Renault', color: 'White'},
-            {vin: 'gf45wg5', year: 2011, brand: 'VW', color: 'Red'},
-            {vin: 'bhv5y5w', year: 2015, brand: 'Jaguar', color: 'Blue'},
-            {vin: 'ybw5fsd', year: 2012, brand: 'Ford', color: 'Yellow'},
-            {vin: '45665e5', year: 2011, brand: 'Mercedes', color: 'Brown'},
-            {vin: 'he6sb5v', year: 2015, brand: 'Ford', color: 'Black'}
-        ];
     }
     ngOnInit() {
+        this.getProductByCatId(1, 'product1');
+        this.getProductByCatId(2, 'product2');
+        this.getProductByCatId(3, 'product3');
         this.items = [
             {
-                label: 'TV', icon: 'fa fa-fw fa-check',
-                items: [
-                    [
-                        {
-                            label: 'TV 1',
-                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
-                        },
-                        {
-                            label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
-                    ],
-                    [
-                        {
-                            label: 'TV 3',
-                            items: [{ label: 'TV 3.1' }, { label: 'TV 3.2' }]
-                        },
-                        {
-                            label: 'TV 4',
-                            items: [{ label: 'TV 4.1' }, { label: 'TV 4.2' }]
-                        }
-                    ]
-                ]
+                label: 'Hoàng hà mobile',
+                url: '#/product-detail'
             },
             {
-                label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
-                items: [
-                    [
-                        {
-                            label: 'Sports 1',
-                            items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }]
-                        },
-                        {
-                            label: 'Sports 2',
-                            items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }]
-                        },
-
-                    ],
-                    [
-                        {
-                            label: 'Sports 3',
-                            items: [{ label: 'Sports 3.1' }, { label: 'Sports 3.2' }]
-                        },
-                        {
-                            label: 'Sports 4',
-                            items: [{ label: 'Sports 4.1' }, { label: 'Sports 4.2' }]
-                        }
-                    ],
-                ]
+                label: 'Thế giới di động'
             },
             {
-                label: 'TV', icon: 'fa fa-fw fa-check',
-                items: [
-                    [
-                        {
-                            label: 'TV 1',
-                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
-                        },
-                        {
-                            label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
-                    ],
-                    [
-                        {
-                            label: 'TV 3',
-                            items: [{ label: 'TV 3.1' }, { label: 'TV 3.2' }]
-                        },
-                        {
-                            label: 'TV 4',
-                            items: [{ label: 'TV 4.1' }, { label: 'TV 4.2' }]
-                        }
-                    ]
-                ]
+                label: 'Tech world'
             },
             {
-                label: 'TV', icon: 'fa fa-fw fa-check',
-                items: [
-                    [
-                        {
-                            label: 'TV 1',
-                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
-                        },
-                        {
-                            label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
-                    ],
-                    [
-                        {
-                            label: 'TV 3',
-                            items: [{ label: 'TV 3.1' }, { label: 'TV 3.2' }]
-                        },
-                        {
-                            label: 'TV 4',
-                            items: [{ label: 'TV 4.1' }, { label: 'TV 4.2' }]
-                        }
-                    ]
-                ]
+                label: 'Nhật Bảo mobile'
             },
             {
-                label: 'TV', icon: 'fa fa-fw fa-check',
-                items: [
-                    [
-                        {
-                            label: 'TV 1',
-                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
-                        },
-                        {
-                            label: 'TV 2',
-                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-                        }
-                    ],
-                    [
-                        {
-                            label: 'TV 3',
-                            items: [{ label: 'TV 3.1' }, { label: 'TV 3.2' }]
-                        },
-                        {
-                            label: 'TV 4',
-                            items: [{ label: 'TV 4.1' }, { label: 'TV 4.2' }]
-                        }
-                    ]
-                ]
+                label: 'Đào Thạch Mobile'
             },
+            {
+                label: 'Nhật Cường mobile'
+            },
+            {
+                label: 'Bảo Tuyết Mobile'
+            },
+            {
+                label: 'Cellphones'
+            }
         ];
+    }
+
+    getListMenuItem() {
+        const catalogs = this.apiService.getAllCatalog();
+        const providers = this.apiService.getAllProvider();
+        forkJoin([catalogs, providers]).subscribe((res: any) => {
+            this.listCatalog = res[0].data;
+            this.listProvider = res[1].data;
+            for (let i = 0; i < 5; i++) {
+                const item = {
+
+                }
+            }
+            console.log(res);
+        });
+
+    }
+
+    getProductByCatId(id: number, productList: any) {
+        this.apiService.getProductByCatalogId(id).subscribe((res: any) => {
+            this.listproduct[productList] = res.data.slice(0, 9);
+            console.log(res)
+
+        });
     }
     ngOnDestroy(): void {
         this.myInterval = 0;
@@ -180,5 +112,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     removeSlide(index?: number): void {
         const toRemove = index ? index : this.activeSlideIndex;
         this.slides.splice(toRemove, 1);
+    }
+
+    addToCart(product: any) {
+        console.log(product);
+    }
+    gotoProductDetail(productId: any) {
+        this.router.navigate(['product-detail', productId])
+    }
+
+    gotoCategory(catId: any) {
+
     }
 }

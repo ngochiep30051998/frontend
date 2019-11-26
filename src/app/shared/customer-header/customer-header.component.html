@@ -15,14 +15,14 @@
         </div>
         <div class="p-2 right-item">
             <div class="d-flex justify-content-end">
-                <div class="p-1">
-                    <a class="nav-link">Sigh up</a>
+                <div class="p-1" style="cursor: pointer;">
+                    <a class="nav-link">Đăng ký</a>
                 </div>
-                <div class="p-1 ">
-                    <a class="nav-link">Login</a>
+                <div class="p-1 " (click)="openModal()">
+                    <a class="nav-link" style="cursor: pointer;">Đăng nhập</a>
                 </div>
                 <div class="p-1">
-                    <a class="nav-link">
+                    <a class="nav-link" style="cursor: pointer;">
                         <i class="fa fa-shopping-cart fa-lg"></i>
                         <span class="badge badge-pill badge-danger">5</span>
                     </a>
@@ -38,3 +38,47 @@
         </div>
     </div>
 </header>
+
+<ng-template #modalLogin>
+    <form action="">
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Đăng nhập</h4>
+
+            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModalDel()">
+                <span>&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div class="card">
+                <div class="card-body">
+                    <form (ngSubmit)="login()" class="form-horizontal" [formGroup]="loginForm">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="hf-email">Email</label>
+                            <div class="col-md-9">
+                                <input type="email" id="hf-email" formControlName="email" name="hf-email"
+                                    class="form-control" placeholder="Nhập địa chỉ email..." autocomplete="email">
+                                <span class="help-block" class="text-danger"
+                                *ngIf="!loginForm?.controls?.email?.valid && loginForm?.controls?.email?.touched">Email
+                                    là bắt buộc.</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label" for="hf-password">Mật khẩu</label>
+                            <div class="col-md-9">
+                                <input type="password" id="hf-password" formControlName="password" name="hf-password"
+                                    class="form-control" placeholder="Nhập mật khẩu..." autocomplete="current-password">
+                                <span class="help-block" class="text-danger"
+                                    *ngIf="loginForm?.controls?.password?.errors?.required && loginForm?.controls?.password?.touched">Mật
+                                    khẩu là bắt buộc</span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-danger">Đăng nhập</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</ng-template>

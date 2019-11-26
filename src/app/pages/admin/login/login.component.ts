@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { USER_ROLES, ADMIN, SUPER_ADMIN } from '../../../constants/constant';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { HelperService } from '../../../services/helper.service';
+import { HelperService } from '../../../services/helper/helper.service';
 
 @Component({
     selector: 'app-login',
@@ -34,10 +34,12 @@ export class LoginComponent implements OnInit {
         });
     }
     async login() {
+        this.helperService.showLoading();
+
         try {
-            this.helperService.showLoading();
             const user = this.loginForm.value;
             if (this.loginForm.invalid) {
+                this.helperService.hideLoading();
                 return;
             }
             const res: any = await this.apiService.login(user);

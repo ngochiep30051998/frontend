@@ -28,7 +28,15 @@ export const routes: Routes = [
       {
         path: 'product-management',
         loadChildren: () => import('../admin/product-management/product-management.module').then(m => m.ProductManagementModule)
-      }
+      },
+      {
+        path: 'shop-management',
+        loadChildren: () => import('../admin/shop-management/shop-management.module').then(m => m.ShopManagementModule)
+      },
+      {
+        path: 'shop',
+        loadChildren: () => import('../admin/shop/shop.module').then(m => m.ShopModule)
+      },
     ]
   },
 ];

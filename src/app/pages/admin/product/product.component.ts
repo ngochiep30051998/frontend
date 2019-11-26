@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../../services/api/api.service';
-import { HelperService } from '../../../services/helper.service';
+import { HelperService } from '../../../services/helper/helper.service';
 @Component({
     selector: 'app-product',
     templateUrl: './product.component.html',

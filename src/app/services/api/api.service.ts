@@ -81,4 +81,36 @@ export class ApiService {
             });
         });
     }
+    getAllProvider() {
+        const url = this.url + 'provider/list-providers';
+        return this.http.get(url);
+    }
+
+    getAllCatalog() {
+        const url = this.url + 'catalog/list-catalogs';
+        return this.http.get(url);
+    }
+
+    getProductByCatalogId(catalogid: any) {
+        const url = `${this.url}catalog/list-products/${catalogid}`;
+        return this.http.get(url);
+        // return new Promise((resolve, reject) => {
+        //     this.http.get(url).subscribe(res => {
+        //         resolve(res);
+        //     }, err => {
+        //         reject(err);
+        //     });
+        // });
+    }
+
+    getProductByProviderId(providerId: any) {
+        const url = `${this.url}provider/list-products/${providerId}`;
+        return new Promise((resolve, reject) => {
+            this.http.get(url).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
 }

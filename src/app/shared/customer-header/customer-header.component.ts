@@ -1,105 +1,91 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { MenuItem, MessageService } from 'primeng/api';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { HelperService } from '../../services/helper/helper.service';
+import { ApiService } from '../../services/api/api.service';
+import { Router } from '@angular/router';
+import { ADMIN, SUPER_ADMIN, USER_ROLES } from '../../constants/constant';
 @Component({
-  selector: 'app-customer-header',
-  templateUrl: './customer-header.component.html',
-  styleUrls: ['./customer-header.component.scss']
+    selector: 'app-customer-header',
+    templateUrl: './customer-header.component.html',
+    styleUrls: ['./customer-header.component.scss']
 })
 export class CustomerHeaderComponent implements OnInit {
-  items: MenuItem[];
-  constructor() { }
 
-  ngOnInit() {
-    this.items = [
-      {
-        label: 'TV', icon: 'fa fa-fw fa-check',
-        items: [
-          [
-            {
-              label: 'TV 1',
-              items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
-            },
-            {
-              label: 'TV 2',
-              items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-            }
-          ],
-        ]
-      },
-      {
-        label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
-        items: [
-          [
-            {
-              label: 'Sports 1',
-              items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }]
-            },
-            {
-              label: 'Sports 2',
-              items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }]
-            },
+    @ViewChild('modalLogin', { static: false }) modalLogin: ElementRef;
 
-          ],
-          [
+    public modalRef: BsModalRef;
+    public items: MenuItem[];
+    public loginForm: FormGroup;
+    public userRoles = USER_ROLES;
+    constructor(
+        public modalService: BsModalService,
+        private formBuilder: FormBuilder,
+        public helperService: HelperService,
+        private apiService: ApiService,
+        private router: Router,
+        private messageService: MessageService,
+    ) {
+        this.initForm();
+    }
+
+    ngOnInit() {
+        this.items = [
             {
-              label: 'Sports 3',
-              items: [{ label: 'Sports 3.1' }, { label: 'Sports 3.2' }]
+                label: 'Apple', icon: 'fa fa-fw fa-apple',
             },
             {
-              label: 'Sports 4',
-              items: [{ label: 'Sports 4.1' }, { label: 'Sports 4.2' }]
-            }
-          ],
-        ]
-      },
-      {
-        label: 'TV', icon: 'fa fa-fw fa-check',
-        items: [
-          [
-            {
-              label: 'TV 1',
-              items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
+                label: 'Huawei', icon: 'fa fa-fw fa-mobile',
             },
             {
-              label: 'TV 2',
-              items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-            }
-          ],
-        ]
-      },
-      {
-        label: 'TV', icon: 'fa fa-fw fa-check',
-        items: [
-          [
-            {
-              label: 'TV 1',
-              items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
+                label: 'Oppo', icon: 'fa fa-fw fa-android',
             },
             {
-              label: 'TV 2',
-              items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
-            }
-          ],
-        ]
-      },
-      {
-        label: 'TV', icon: 'fa fa-fw fa-check',
-        items: [
-          [
-            {
-              label: 'TV 1',
-              items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
+                label: 'Samsung', icon: 'fa fa-fw fa-android',
             },
             {
-              label: 'TV 2',
-              items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
+                label: 'ViVo', icon: 'fa fa-fw fa-android',
+            },
+            {
+                label: 'Realme', icon: 'fa fa-fw fa-android',
+            },
+        ];
+    }
+
+    openModal() {
+        this.modalRef = this.modalService.show(this.modalLogin);
+    }
+    closeModalDel() {
+        this.modalService.hide(1);
+    }
+
+    initForm() {
+        this.loginForm = this.formBuilder.group({
+            email: ['', Validators.required],
+            password: ['', Validators.required]
+        });
+    }
+    async login() {
+        this.helperService.showLoading();
+        try {
+            const user = this.loginForm.value;
+            if (this.loginForm.invalid) {
+                this.helperService.hideLoading();
+                return;
             }
-          ],
-        ]
-      },
-    ];
-  }
+            console.log(user)
+
+            const res: any = await this.apiService.login(user);
+            this.helperService.hideLoading();
+
+        } catch (e) {
+            this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công', detail: e.error.message });
+            console.log(e)
+            this.helperService.hideLoading();
+        }
+    }
+    get f() { return this.loginForm.controls; }
 }
 
 

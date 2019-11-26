@@ -8,6 +8,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { MegaMenuModule } from 'primeng/megamenu';
 import {CarouselModule as PrimengCarosel} from 'primeng/carousel';
 import {CardModule} from 'primeng/card';
+import {ButtonModule} from 'primeng/button';
 @NgModule({
   declarations: [HomeComponent],
   imports: [
@@ -16,6 +17,7 @@ import {CardModule} from 'primeng/card';
     MegaMenuModule,
     PrimengCarosel,
     CardModule,
+    ButtonModule,
     RouterModule.forChild([{ path: '', component: HomeComponent }])
   ],
   providers: [

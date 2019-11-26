@@ -23,7 +23,7 @@ export const routes: Routes = [
         loadChildren: () => import('../customer/product-category/product-category.module').then(m => m.ProductCategoryModule)
       },
       {
-        path: 'product-detail',
+        path: 'product-detail/:id',
         loadChildren: () => import('../customer/product-detail/product-detail.module').then(m => m.ProductDetailModule)
       },
       {
@@ -32,10 +32,6 @@ export const routes: Routes = [
       }
     ]
   },
-  {
-    path: 'login',
-    loadChildren: () => import('../customer/login/login.module').then(m => m.LoginModule)
-  }
 ];
 
 @NgModule({

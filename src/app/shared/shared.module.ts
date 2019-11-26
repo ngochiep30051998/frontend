@@ -5,6 +5,9 @@ import { CustomerFooterComponent } from './customer-footer/customer-footer.compo
 import {ButtonModule} from 'primeng/button';
 import {MegaMenuModule} from 'primeng/megamenu';
 import {MenuModule} from 'primeng/menu';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
 @NgModule({
   declarations: [
     CustomerHeaderComponent,
@@ -14,7 +17,11 @@ import {MenuModule} from 'primeng/menu';
     CommonModule,
     ButtonModule,
     MegaMenuModule,
-    MenuModule
+    MenuModule,
+    ModalModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    ToastModule,
   ],
   exports: [
     CustomerHeaderComponent,
