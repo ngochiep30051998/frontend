@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
             const user = this.loginForm.value;
             if (this.loginForm.invalid) {
                 this.helperService.hideLoading();
+                this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công', detail: 'phải nhập đầy đủ thông tin'});
                 return;
             }
             const res: any = await this.apiService.login(user);

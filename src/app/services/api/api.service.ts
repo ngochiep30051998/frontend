@@ -113,4 +113,15 @@ export class ApiService {
             });
         });
     }
+
+    sighUp(user: any) {
+        const url = this.url + 'auth/register';
+        return new Promise((resolve, reject) => {
+            this.http.post(url, user).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
 }

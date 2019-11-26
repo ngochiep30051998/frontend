@@ -15,17 +15,24 @@
         </div>
         <div class="p-2 right-item">
             <div class="d-flex justify-content-end">
-                <div class="p-1" style="cursor: pointer;">
+                <div class="p-1" style="cursor: pointer;" *ngIf="!user">
                     <a class="nav-link">Đăng ký</a>
                 </div>
-                <div class="p-1 " (click)="openModal()">
+                <div class="p-1 " (click)="openModal()" *ngIf="!user">
                     <a class="nav-link" style="cursor: pointer;">Đăng nhập</a>
                 </div>
+                <div class="p-2 " *ngIf="user">
+                    <a style="cursor: pointer;">xin chào: {{user?.data?.Name}}</a>
+                </div>
+
                 <div class="p-1">
                     <a class="nav-link" style="cursor: pointer;">
                         <i class="fa fa-shopping-cart fa-lg"></i>
                         <span class="badge badge-pill badge-danger">5</span>
                     </a>
+                </div>
+                <div class="p-1 " *ngIf="user" (click)="logout()">
+                    <a class="nav-link" style="cursor: pointer;"><i style="color: red;" class="fa fa-sign-out "></i></a>
                 </div>
             </div>
         </div>
@@ -59,7 +66,7 @@
                                 <input type="email" id="hf-email" formControlName="email" name="hf-email"
                                     class="form-control" placeholder="Nhập địa chỉ email..." autocomplete="email">
                                 <span class="help-block" class="text-danger"
-                                *ngIf="!loginForm?.controls?.email?.valid && loginForm?.controls?.email?.touched">Email
+                                    *ngIf="!loginForm?.controls?.email?.valid && loginForm?.controls?.email?.touched">Email
                                     là bắt buộc.</span>
                             </div>
                         </div>
@@ -82,3 +89,5 @@
 
     </form>
 </ng-template>
+
+<p-toast position="top-left"></p-toast>

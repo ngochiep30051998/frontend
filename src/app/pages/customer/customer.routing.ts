@@ -29,7 +29,7 @@ export const routes: Routes = [
       {
         path: 'shopping-cart',
         loadChildren: () => import('../customer/shopping-cart/shopping-cart.module').then(m => m.ShoppingCartModule)
-      }
+      },
     ]
   },
 ];

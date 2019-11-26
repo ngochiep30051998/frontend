@@ -43,6 +43,10 @@ export const routes: Routes = [
         loadChildren: () => import('./pages/admin/login/login.module').then(m => m.LoginModule)
       }
     ]
+  },
+  {
+    path: 'sigh-up',
+    loadChildren: () => import('./pages/customer/sigh-up/sigh-up.module').then(m => m.SighUpModule)
   }
 
 ];

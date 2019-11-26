@@ -2,46 +2,52 @@
     <div class="card">
         <div class="col-md-12">
             <section class="panel">
-                  <div class="panel-body row">
-                      <div class="col-md-6">
-                          <div class="pro-img-details">
-                              <img [src]="product?.Image" alt="">
-                          </div>
-                          <div class="pro-img-list">
-                              <a href="#" *ngFor="let image of product?.ImageList">
-                                  <img [src]="image?.small_url"  alt="">
-                              </a>
-                          </div>
-                          <p class="top-feature-header">Tính năng nổi bật</p>
-                          <div class="top-feature-content" [innerHtml]="product?.TopFeature"></div>
-                      </div>
-                      <div class="col-md-6 product-detail" >
-                          <h4 class="pro-d-title">
-                              <a href="#" class="">
-                                  {{product?.Name}}
-                              </a>
-                          </h4>
-                          <!-- <p>
+                <div class="panel-body row">
+                    <div class="col-md-6">
+                        <div class="pro-img-details">
+                            <img [src]="product?.Image" alt="">
+                        </div>
+                        <div class="pro-img-list">
+                            <a href="#" *ngFor="let image of product?.ImageList">
+                                <img [src]="image?.small_url" alt="">
+                            </a>
+                        </div>
+                        <p class="top-feature-header">Tính năng nổi bật</p>
+                        <div class="top-feature-content" [innerHtml]="product?.TopFeature"></div>
+                        <div class="product_meta">
+                            <span class="posted_in"> <strong>Loại sản phẩm:</strong> <a rel="tag"
+                                    href="#">{{product?.Brand}}</a></span>
+                            <span class="tagged_as" *ngIf="product?.Provider"><strong>Nhà cung cấp:</strong> <a
+                                    rel="tag" href="#">{{product?.Provider}}</a></span>
+                        </div>
+                        <div class="m-bot15"> <span class="product-price pro-price">{{product?.Price | number}}
+                                VNĐ</span> |
+                            <span class="promotion-price pro-price">{{product?.PromotionPrice | number}} VNĐ</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Số lượng</label>
+                            <input type="number" min="0" max="100" placeholder="1" class="form-control quantity">
+                        </div>
+                        <p>
+                            <button class="btn btn-round btn-danger" type="button"><i class="fa fa-shopping-cart"></i>
+                                Thêm vào giỏ hàng</button>
+                        </p>
+                    </div>
+                    <div class="col-md-6 product-detail">
+                        <h4 class="pro-d-title">
+                            <a href="#" class="">
+                                {{product?.Name}}
+                            </a>
+                        </h4>
+                        <!-- <p>
                               Praesent ac condimentum felis. Nulla at nisl orci, at dignissim dolor, The best product descriptions address your ideal buyer directly and personally. The best product descriptions address your ideal buyer directly and personally.
                           </p> -->
 
-                          <div class="content" [innerHtml]="product?.Content"></div>
-                          <div class="product_meta">
-                              <span class="posted_in"> <strong>Loại sản phẩm:</strong> <a rel="tag" href="#">{{product?.Brand}}</a></span>
-                              <span class="tagged_as" *ngIf="product?.Provider"><strong>Nhà cung cấp:</strong> <a rel="tag" href="#">{{product?.Provider}}</a></span>
-                          </div>
-                          <div class="m-bot15"> <span class="product-price pro-price">{{product?.Price | number}} VNĐ</span> |
-                            <span class="promotion-price pro-price">{{product?.PromotionPrice | number}} VNĐ</span></div>
-                          <div class="form-group">
-                              <label>Số lượng</label>
-                              <input type="number" min="0" max="100" placeholder="1" class="form-control quantity">
-                          </div>
-                          <p>
-                              <button class="btn btn-round btn-danger" type="button"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</button>
-                          </p>
-                      </div>
-                  </div>
-              </section>
-              </div>
+                        <div class="content" [innerHtml]="product?.Content"></div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 </div>

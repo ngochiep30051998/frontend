@@ -19,6 +19,7 @@ export class CustomerHeaderComponent implements OnInit {
     public items: MenuItem[];
     public loginForm: FormGroup;
     public userRoles = USER_ROLES;
+    public user: any;
     constructor(
         public modalService: BsModalService,
         private formBuilder: FormBuilder,
@@ -51,6 +52,7 @@ export class CustomerHeaderComponent implements OnInit {
                 label: 'Realme', icon: 'fa fa-fw fa-android',
             },
         ];
+        this.user = JSON.parse(localStorage.getItem('userInfo'));
     }
 
     openModal() {
@@ -71,18 +73,39 @@ export class CustomerHeaderComponent implements OnInit {
         try {
             const user = this.loginForm.value;
             if (this.loginForm.invalid) {
+                this.messageService.add({ severity: 'error', summary: 'Phải nhập đẩy đủ thông tin' });
                 this.helperService.hideLoading();
                 return;
             }
-            console.log(user)
 
             const res: any = await this.apiService.login(user);
+            localStorage.setItem('userInfo', JSON.stringify({ data: res.customer }));
+            this.user = JSON.parse(localStorage.getItem('userInfo'));
+
             this.helperService.hideLoading();
+            this.messageService.add({ severity: 'success', summary: 'Đăng nhập thành công' });
+            this.modalService.hide(1);
 
         } catch (e) {
-            this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công', detail: e.error.message });
             console.log(e)
+            this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công', detail: e.error.message });
             this.helperService.hideLoading();
+        }
+    }
+    async logout() {
+        this.helperService.showLoading();
+        try {
+            const res: any = await this.apiService.logout();
+
+            localStorage.removeItem('userInfo');
+            this.user = null;
+            if (this.router.url === '/shopping-cart') {
+                this.router.navigate(['home']);
+            }
+            this.helperService.hideLoading();
+        } catch (e) {
+            this.helperService.hideLoading();
+            console.log(e.error.message);
         }
     }
     get f() { return this.loginForm.controls; }
