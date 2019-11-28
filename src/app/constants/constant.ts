@@ -4,7 +4,7 @@ export const SERVER_URL = 'http://localhost:6969/api/';
 export const USER_ROLES = [
     {
         id: 0,
-        name: 'customer'
+        name: 'Customer'
     },
     {
         id: 1,
@@ -15,6 +15,11 @@ export const USER_ROLES = [
         name: 'super admin'
     }
 ];
+
+export const CUSTOMER = {
+    id: 0,
+    name: 'Customer'
+};
 
 export const ADMIN = {
     id: 1,

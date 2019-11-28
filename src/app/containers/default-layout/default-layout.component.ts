@@ -4,6 +4,7 @@ import { navItems } from '../../_nav';
 import { ApiService } from '../../services/api/api.service';
 import { Router } from '@angular/router';
 import { HelperService } from '../../services/helper/helper.service';
+import { CartService } from '../../services/shoppingCart/cart.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class DefaultLayoutComponent implements OnDestroy {
         private apiService: ApiService,
         private helperService: HelperService,
         private router: Router,
+        private cartService: CartService,
         @Inject(DOCUMENT) _document?: any,
     ) {
 
@@ -37,7 +39,8 @@ export class DefaultLayoutComponent implements OnDestroy {
         try {
             await this.apiService.logout();
             this.router.navigate(['admin/login']);
-            localStorage.removeItem('adminInfo');
+            localStorage.clear();
+            this.cartService.updateCart();
             this.helperService.hideLoading();
         } catch (e) {
             this.helperService.hideLoading();

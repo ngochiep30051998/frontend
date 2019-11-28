@@ -1,25 +1,30 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HelperService } from '../../services/helper/helper.service';
 import { ApiService } from '../../services/api/api.service';
 import { Router } from '@angular/router';
 import { ADMIN, SUPER_ADMIN, USER_ROLES } from '../../constants/constant';
+import { CartService } from '../../services/shoppingCart/cart.service';
 @Component({
     selector: 'app-customer-header',
     templateUrl: './customer-header.component.html',
     styleUrls: ['./customer-header.component.scss']
 })
-export class CustomerHeaderComponent implements OnInit {
+export class CustomerHeaderComponent implements OnInit, OnDestroy {
 
-    @ViewChild('modalLogin', { static: false }) modalLogin: ElementRef;
+    @ViewChild('modalLogin', { static: true }) modalLogin: ElementRef;
 
     public modalRef: BsModalRef;
     public items: MenuItem[];
     public loginForm: FormGroup;
     public userRoles = USER_ROLES;
     public user: any;
+    public cart: any;
+    public modalConfig: ModalOptions = {
+        animated: true
+    };
     constructor(
         public modalService: BsModalService,
         private formBuilder: FormBuilder,
@@ -27,8 +32,12 @@ export class CustomerHeaderComponent implements OnInit {
         private apiService: ApiService,
         private router: Router,
         private messageService: MessageService,
+        public cartService: CartService
     ) {
         this.initForm();
+        // this.cartService.cartSubject.subscribe((res: any) => {
+        //     console.log(res);
+        // });
     }
 
     ngOnInit() {
@@ -56,10 +65,10 @@ export class CustomerHeaderComponent implements OnInit {
     }
 
     openModal() {
-        this.modalRef = this.modalService.show(this.modalLogin);
+        this.modalRef = this.modalService.show(this.modalLogin, this.modalConfig);
     }
-    closeModalDel() {
-        this.modalService.hide(1);
+    closeModal() {
+        this.modalRef.hide();
     }
 
     initForm() {
@@ -84,10 +93,10 @@ export class CustomerHeaderComponent implements OnInit {
 
             this.helperService.hideLoading();
             this.messageService.add({ severity: 'success', summary: 'Đăng nhập thành công' });
-            this.modalService.hide(1);
+            this.closeModal();
 
         } catch (e) {
-            console.log(e)
+            console.log(e);
             this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công', detail: e.error.message });
             this.helperService.hideLoading();
         }
@@ -97,7 +106,8 @@ export class CustomerHeaderComponent implements OnInit {
         try {
             const res: any = await this.apiService.logout();
 
-            localStorage.removeItem('userInfo');
+            localStorage.clear();
+            this.cartService.updateCart();
             this.user = null;
             if (this.router.url === '/shopping-cart') {
                 this.router.navigate(['home']);
@@ -108,7 +118,13 @@ export class CustomerHeaderComponent implements OnInit {
             console.log(e.error.message);
         }
     }
+    gotoPage(page){
+        this.router.navigate([page]);
+    }
     get f() { return this.loginForm.controls; }
+    ngOnDestroy() {
+        // this.cartService.cartSubject.unsubscribe();
+    }
 }
 
 

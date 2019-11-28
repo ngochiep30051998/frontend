@@ -4,6 +4,9 @@ import { MenuItem } from 'primeng/api';
 import { ApiService } from '../../../services/api/api.service';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth/auth.service';
+import { HelperService } from '../../../services/helper/helper.service';
+import { CartService } from '../../../services/shoppingCart/cart.service';
 
 @Component({
     selector: 'app-home',
@@ -33,18 +36,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     public responsiveOptions: any;
     constructor(
         private apiService: ApiService,
-        public router: Router
+        public router: Router,
+        public authService: AuthService,
+        public helperService: HelperService,
+        public cartService: CartService
     ) {
         for (let i = 0; i < 4; i++) {
             this.addSlide();
         }
+        this.getProductByCatId(1, 'product1');
+        this.getProductByCatId(2, 'product2');
+        this.getProductByCatId(3, 'product3');
         // this.getListMenuItem();
 
     }
     ngOnInit() {
-        this.getProductByCatId(1, 'product1');
-        this.getProductByCatId(2, 'product2');
-        this.getProductByCatId(3, 'product3');
+
         this.items = [
             {
                 label: 'Hoàng hà mobile',
@@ -80,11 +87,11 @@ export class HomeComponent implements OnInit, OnDestroy {
         forkJoin([catalogs, providers]).subscribe((res: any) => {
             this.listCatalog = res[0].data;
             this.listProvider = res[1].data;
-            for (let i = 0; i < 5; i++) {
-                const item = {
+            // for (let i = 0; i < 5; i++) {
+            //     const item = {
 
-                }
-            }
+            //     }
+            // }
             console.log(res);
         });
 
@@ -93,7 +100,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     getProductByCatId(id: number, productList: any) {
         this.apiService.getProductByCatalogId(id).subscribe((res: any) => {
             this.listproduct[productList] = res.data.slice(0, 9);
-            console.log(res)
+            console.log(res);
 
         });
     }
@@ -114,11 +121,17 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.slides.splice(toRemove, 1);
     }
 
-    addToCart(product: any) {
-        console.log(product);
+    addToCart(product: any, quantity: number) {
+        if (this.authService.isCustomer()) {
+            this.cartService.addToCart(product, quantity);
+            console.log(product);
+        } else {
+            this.helperService.showAlert('error', 'Bạn phải đăng nhập trước');
+            return;
+        }
     }
     gotoProductDetail(productId: any) {
-        this.router.navigate(['product-detail', productId])
+        this.router.navigate(['product-detail', productId]);
     }
 
     gotoCategory(catId: any) {

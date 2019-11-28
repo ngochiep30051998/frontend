@@ -1,46 +1,59 @@
 <div class="container">
 	<table id="cart" class="table table-hover table-condensed">
-    				<thead>
-						<tr>
-							<th style="width:50%">Product</th>
-							<th style="width:10%">Price</th>
-							<th style="width:8%">Quantity</th>
-							<th style="width:22%" class="text-center">Subtotal</th>
-							<th style="width:10%"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td data-th="Product">
-								<div class="row">
-									<div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
-									<div class="col-sm-10">
-										<h4 class="nomargin">Product 1</h4>
-										<p>Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet.</p>
-									</div>
-								</div>
-							</td>
-							<td data-th="Price">$1.99</td>
-							<td data-th="Quantity">
-								<input type="number" class="form-control text-center" value="1">
-							</td>
-							<td data-th="Subtotal" class="text-center">1.99</td>
-							<td class="actions" data-th="">
-								<button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>								
-							</td>
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr class="visible-xs">
-							<td class="text-center"><strong>Total 1.99</strong></td>
-						</tr>
-						<tr>
-							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
-							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
-							<td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
-						</tr>
-					</tfoot>
-				</table>
+		<thead>
+			<tr>
+				<th style="width:5%">STT</th>
+				<th style="width:45%">Sản phẩm</th>
+				<th style="width:10%">Đơn giá</th>
+				<th style="width:8%">Số lượng</th>
+				<th style="width:22%" class="text-center">Thành tiền</th>
+				<th style="width:10%"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let product of cart;let i = index;">
+				<td>{{i+1}}</td>
+				<td data-th="Product">
+					<div class="row">
+						<div class="col-sm-2 hidden-xs"><img [src]="product?.Image" alt="..."
+								class="img-responsive product-image" />
+						</div>
+						<div class="col-sm-10 product-detail">
+							<h4 class="nomargin">{{product?.Name}}</h4>
+							<p>Mã sản phẩm: {{product?.SKU}}</p>
+						</div>
+					</div>
+				</td>
+				<td data-th="Price">{{(product?.PromotionPrice ? product?.PromotionPrice : product?.Price) | number}}
+					VNĐ</td>
+				<td data-th="Quantity">
+					<input type="number" class="form-control text-center" (change)="addProduct($event,i)" min="0"
+						[max]="product?.Amount" [value]="product?.quantity">
+				</td>
+				<td data-th="Subtotal" class="text-center">
+					{{cartService.getSubTotalPrice(product) | number}} VNĐ</td>
+				<td class="actions" data-th="">
+					<!-- <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button> -->
+					<button class="btn btn-danger btn-sm"
+						(click)="cartService.removeProduct(product,product?.quantity)"><i
+							class="fa fa-trash-o"></i></button>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr class="visible-xs">
+				<td></td>
+				<td class="text-center"><strong>Tổng số sản phẩm: {{cartService.getTotalProduct()}}</strong></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><a href="#" class="btn btn-warning" (click)="gotoPage('home')"><i class="fa fa-angle-left"></i> Tiếp
+						tục mua sắm</a></td>
+				<td colspan="2" class="hidden-xs"></td>
+				<td class="hidden-xs text-center"><strong>Tổng hóa đơn: {{cartService.getTotalPrice() | number}} VNĐ</strong></td>
+				<td><a href="#" class="btn btn-success btn-block" *ngIf="cart?.length >0">Thanh toán <i
+							class="fa fa-angle-right"></i></a></td>
+			</tr>
+		</tfoot>
+	</table>
 </div>

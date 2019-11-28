@@ -1,6 +1,6 @@
 <header>
     <div class="d-flex justify-content-center header-top">
-        <div class="p-2 logo">
+        <div class="p-2 logo" (click)="gotoPage('home')" style="cursor: pointer;">
             <img src="../../../assets/logo/logo-cut.png">
         </div>
         <div class="p-2 search">
@@ -25,10 +25,10 @@
                     <a style="cursor: pointer;">xin chào: {{user?.data?.Name}}</a>
                 </div>
 
-                <div class="p-1">
+                <div class="p-1" (click)="gotoPage('shopping-cart')" *ngIf="cartService.getTotalProduct() > 0">
                     <a class="nav-link" style="cursor: pointer;">
                         <i class="fa fa-shopping-cart fa-lg"></i>
-                        <span class="badge badge-pill badge-danger">5</span>
+                        <span class="badge badge-pill badge-danger">{{cartService.getTotalProduct()| number}}</span>
                     </a>
                 </div>
                 <div class="p-1 " *ngIf="user" (click)="logout()">
@@ -51,7 +51,7 @@
         <div class="modal-header">
             <h4 class="modal-title pull-left">Đăng nhập</h4>
 
-            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModalDel()">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
                 <span>&times;</span>
             </button>
         </div>

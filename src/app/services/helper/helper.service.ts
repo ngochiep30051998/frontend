@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
     providedIn: 'root'
@@ -7,7 +8,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class HelperService {
 
     constructor(
-        public spinner: NgxSpinnerService
+        public spinner: NgxSpinnerService,
+        public messageService: MessageService,
     ) { }
 
     public showLoading() {
@@ -15,5 +17,8 @@ export class HelperService {
     }
     public hideLoading() {
         this.spinner.hide();
+    }
+    public showAlert(type: any, summary?: any, detail?: any) {
+        this.messageService.add({ severity: type, summary: summary, detail: detail });
     }
 }

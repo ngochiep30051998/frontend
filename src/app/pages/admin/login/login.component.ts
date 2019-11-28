@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
             const user = this.loginForm.value;
             if (this.loginForm.invalid) {
                 this.helperService.hideLoading();
-                this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công', detail: 'phải nhập đầy đủ thông tin'});
+                this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công', detail: 'phải nhập đầy đủ thông tin' });
                 return;
             }
             const res: any = await this.apiService.login(user);
@@ -48,6 +48,10 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('adminInfo', JSON.stringify({ data: res.customer }));
                 // this.messageService.add({ severity: 'success', summary: 'Đăng nhập thành công' });
                 this.router.navigate(['admin/dashboard']);
+            } else {
+                // localStorage.setItem('userInfo', JSON.stringify({ data: res.customer }));
+                await this.apiService.logout();
+                this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công', detail: 'Bạn không có quyền đăng nhập vảo trang quản trị' });
             }
             this.helperService.hideLoading();
 
