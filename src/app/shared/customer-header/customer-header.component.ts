@@ -90,7 +90,7 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
             }
 
             const res: any = await this.apiService.login(user);
-            localStorage.setItem('userInfo', JSON.stringify({ data: res.customer }));
+            localStorage.setItem('userInfo', JSON.stringify({ data: res.accessToken }));
             this.user = JSON.parse(localStorage.getItem('userInfo'));
 
             this.helperService.hideLoading();

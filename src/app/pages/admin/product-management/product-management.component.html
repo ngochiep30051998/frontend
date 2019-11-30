@@ -15,19 +15,19 @@
         <tbody>
             <tr *ngFor="let product of listProduct; let i = index;">
                 <th scope="row">{{i+1}}</th>
-                <td>{{product.SKU}}</td>
-                <td>{{product.Name}}</td>
-                <td>{{product.Brand}}</td>
-                <td>{{product.Price}}</td>
-                <td>{{product.PromotionPrice}}</td>
+                <td>{{product?.SKU}}</td>
+                <td>{{product?.Name}}</td>
+                <td>{{product?.Brand}}</td>
+                <td>{{product?.Price}}</td>
+                <td>{{product?.PromotionPrice}}</td>
                 <td>{{product.Status ? 'Còn hàng': 'Hết hàng'}}</td>
                 <td>
-                    <button type="button" (click)="goToProductDetail(product.Id)"
+                    <button type="button" (click)="goToProductDetail(product?.Id)"
                         class="btn btn-brand btn-sm btn-facebook mr-1" style="margin-bottom: 4px">
                         <i class="fa fa-edit"></i>
                         <span>Sửa</span>
                     </button>
-                    <button type="button" class="btn btn-brand btn-sm btn-youtube mr-1" style="margin-bottom: 4px">
+                    <button type="button" (click)="deleteProduct(product?.Id)" class="btn btn-brand btn-sm btn-youtube mr-1" style="margin-bottom: 4px">
                         <i class="fa fa-trash"></i>
                         <span>Xóa</span>
                     </button>

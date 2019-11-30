@@ -32,8 +32,7 @@
                         <label class="col-md-3 col-form-label"  for="catalogId">Loại sản phẩm</label>
                         <div class="col-md-9">
                             <select id="catalogId" name="catalogId" formControlName="catalogId" class="form-control">
-                                <option value="0">Chọn nhà sản xuất</option>
-                                <option *ngFor="let item of listProductCategory" [ngValue]="item.id">{{item?.name}}</option>
+                                <option *ngFor="let item of listProductCategory" [value]="item?.CatalogId" >{{item?.Brand}}</option>
                             </select>
                         </div>
                     </div>
@@ -95,7 +94,7 @@
             <div class="card-footer">
                 <button type="button" class="btn btn-sm btn-primary" (click)="addProduct()" *ngIf="!productId"><i
                         class="fa fa-dot-circle-o"></i> Thêm</button>
-                <button type="button" class="btn btn-sm btn-primary" *ngIf="productId"><i
+                <button type="button" class="btn btn-sm btn-primary" *ngIf="productId" (click)="updateProduct()"><i
                         class="fa fa-dot-circle-o"></i>
                     Sửa</button>
                 <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Hủy</button>

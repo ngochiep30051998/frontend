@@ -7,7 +7,7 @@ import { CUSTOMER, ADMIN, SUPER_ADMIN } from '../../constants/constant';
 export class AuthService {
     public user: any;
     constructor() {
-       
+
     }
 
     public isCustomer() {
@@ -19,17 +19,23 @@ export class AuthService {
     }
 
     public isAdmin() {
-        this.user = JSON.parse(localStorage.getItem('userInfo'));
+        this.user = JSON.parse(localStorage.getItem('adminInfo'));
+        // if (this.user && this.user.data) {
+        //     return this.user.data.roles.find(u => u.Name === ADMIN.name) ? true : false;
+        // }
         if (this.user && this.user.data) {
-            return this.user.data.roles.find(u => u.Name === ADMIN.name) ? true : false;
+            return true;
         }
         return false;
     }
 
     public isSupperAdmin() {
-        this.user = JSON.parse(localStorage.getItem('userInfo'));
+        this.user = JSON.parse(localStorage.getItem('adminInfo'));
+        // if (this.user && this.user.data) {
+        //     return this.user.data.roles.find(u => u.Name === SUPER_ADMIN.name) ? true : false;
+        // }
         if (this.user && this.user.data) {
-            return this.user.data.roles.find(u => u.Name === SUPER_ADMIN.name) ? true : false;
+            return true;
         }
         return false;
     }

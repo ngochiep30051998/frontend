@@ -40,7 +40,7 @@ export const navItems: NavData[] = [
     icon: 'icon-puzzle',
     children: [
       {
-        name: 'danh sách sản phẩm',
+        name: 'Danh sách sản phẩm',
         url: '/admin/product-management',
         icon: 'icon-puzzle'
       },
@@ -52,21 +52,9 @@ export const navItems: NavData[] = [
     ]
   },
   {
-    name: 'Quản lý cửa hàng',
-    url: '/base',
-    icon: 'icon-puzzle',
-    children: [
-      {
-        name: 'danh sách cửa hàng',
-        url: '/admin/shop-management',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Thêm cửa hàng',
-        url: '/admin/shop',
-        icon: 'icon-puzzle'
-      }
-    ]
+    name: 'Quản lý nhà cung cấp',
+    url: '/admin/shop-management',
+    icon: 'icon-puzzle'
   },
   {
     name: 'Quản lý đơn hàng',

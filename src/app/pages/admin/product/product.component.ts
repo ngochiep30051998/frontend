@@ -16,20 +16,7 @@ export class ProductComponent implements OnInit {
     public image: File;
     public imageList: File;
     public product: any;
-    public listProductCategory = [
-        {
-            id: 1,
-            name: 'xiaomi'
-        },
-        {
-            id: 2,
-            name: 'apple'
-        },
-        {
-            id: 3,
-            name: 'samsung'
-        },
-    ];
+    public listProductCategory = [];
     constructor(
         private formBuilder: FormBuilder,
         public activatedRoute: ActivatedRoute,
@@ -38,6 +25,7 @@ export class ProductComponent implements OnInit {
         public router: Router
     ) {
         this.productId = this.activatedRoute.snapshot.paramMap.get('productId');
+        this.getListCatalog();
         this.initForm();
 
     }
@@ -53,7 +41,7 @@ export class ProductComponent implements OnInit {
                 name: ['', Validators.required],
                 content: [''],
                 price: [0, Validators.required],
-                catalogId: [],
+                catalogId: [1],
                 promotionPrice: [],
                 amount: [],
                 topFeature: [''],
@@ -110,6 +98,27 @@ export class ProductComponent implements OnInit {
             imageList: image
         });
         console.log(this.productForm.value)
+    }
+
+    async updateProduct() {
+        try {
+            console.log(this.productForm.value);
+            this.helperService.showLoading();
+            const product: any = this.productForm.value;
+            // tslint:disable-next-line:radix
+            product.productId = parseInt(this.productId);
+            const res = await this.apiService.updateProduct(product);
+            this.helperService.hideLoading();
+        } catch (e) {
+            console.log(e)
+            this.helperService.hideLoading();
+        }
+    }
+
+    getListCatalog() {
+        this.apiService.getAllCatalog().then((res: any) => {
+            this.listProductCategory = res.data;
+        });
     }
     get f() { return this.productForm.controls; }
 }

@@ -1,8 +1,8 @@
 // LOCAL
-export const SERVER_URL = 'http://localhost:6969/api/';
+// export const SERVER_URL = 'http://localhost:6969/api/';
 
 // HEROKU
-// export const SERVER_URL = 'https://smartphone-store.herokuapp.com/';
+export const SERVER_URL = 'https://smartphone-store.herokuapp.com/api/';
 
 export const USER_ROLES = [
     {

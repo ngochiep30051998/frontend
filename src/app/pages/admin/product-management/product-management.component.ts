@@ -42,4 +42,15 @@ export class ProductManagementComponent implements OnInit {
     goToProductDetail(productId: any) {
         this.router.navigate(['admin/product', productId]);
     }
+
+    deleteProduct(productId) {
+        this.helperService.showLoading();
+        this.apiService.deleteProduct(productId).then((res: any) => {
+            console.log(res)
+            this.helperService.hideLoading();
+        }, err => {
+            console.log(err);
+            this.helperService.hideLoading();
+        });
+    }
 }

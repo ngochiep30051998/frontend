@@ -13,7 +13,7 @@ export class ApiService {
     ) { }
 
     login(req) {
-        const urlLogin = this.url + 'auth/login';
+        const urlLogin = this.url + 'auth/v2/login';
         return new Promise((resolve, reject) => {
             this.http.post(urlLogin, req).subscribe(res => {
                 resolve(res);
@@ -24,7 +24,7 @@ export class ApiService {
     }
 
     logout() {
-        const url = this.url + 'auth/logout';
+        const url = this.url + 'auth/v2/logout';
         return new Promise((resolve, reject) => {
             this.http.get(url).subscribe(res => {
                 resolve(res);
@@ -70,7 +70,31 @@ export class ApiService {
             });
         });
     }
-
+    updateProduct(product: any) {
+        const url = this.url + 'product/update-product-extends';
+        const formData: FormData = new FormData();
+        formData.append('amount', product.amount);
+        formData.append('catalogId', product.catalogId);
+        formData.append('content', product.content);
+        formData.append('image', product.image);
+        for (const key in product.imageList) {
+            if (product.imageList[key]) {
+                formData.append('imageList', product.imageList[key]);
+            }
+        }
+        formData.append('name', product.name);
+        formData.append('price', product.price);
+        formData.append('promotionPrice', product.promotionPrice);
+        formData.append('sku', product.sku);
+        formData.append('topFeature', product.topFeature);
+        return new Promise((resolve, reject) => {
+            this.http.put(url, formData).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
     getProductById(productId: any) {
         const url = `${this.url}product/product-details/${productId}`;
         return new Promise((resolve, reject) => {
@@ -128,9 +152,20 @@ export class ApiService {
     }
 
     sighUp(user: any) {
-        const url = this.url + 'auth/register';
+        const url = this.url + 'auth/v2/register';
         return new Promise((resolve, reject) => {
             this.http.post(url, user).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
+
+    deleteProduct(productId) {
+        const url = this.url + 'product/delete-product';
+        return new Promise((resolve, reject) => {
+            this.http.delete(url, productId).subscribe(res => {
                 resolve(res);
             }, err => {
                 reject(err);
