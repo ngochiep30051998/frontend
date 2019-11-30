@@ -1,0 +1,71 @@
+<div class="container content">
+    <div class="row">
+        <div class="col-12 col-sm-3">
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Cửa hàng khác
+                </div>
+                <ul class="list-group category_block">
+                    <li class="list-group-item" *ngFor="let provider of listProvier"><a [routerLink]="['/product-detail',provider?.Id]">{{provider?.Name}}</a></li>
+                </ul>
+            </div>
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-success text-white text-uppercase">Sản phẩm mới</div>
+                <div class="card-body">
+                    <img class="img-fluid" [src]="listProduct[listProduct.length-1]?.Image" />
+                    <h5 class="card-title">{{listProduct[listProduct.length-1]?.Name}}</h5>
+                    <p class="card-text">Mã sản phẩm: {{listProduct[listProduct.length-1]?.SKU}}</p>
+                    <span class="bloc_left_price top-product-price">{{listProduct[listProduct.length-1]?.Price| number}}</span> |
+                    <span class="bloc_left_price top-promotion-price"  >{{listProduct[listProduct.length-1]?.PromotionPrice | number}} VNĐ</span>
+                    <p class="btn btn-success btn-block" (click)="addToCart(listProduct[listProduct.length-1],1)">Thêm vào rỏ <i
+                        class="fa fa-shopping-cart"></i></p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4" *ngFor="let product of listProduct">
+                    <div class="card">
+                        <img class="card-img-top"
+                            [src]="product?.Image ? product?.Image: 'https://dummyimage.com/600x400/55595c/fff'"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title"><a [routerLink]="['/product-detail',product?.Id]"
+                                    title="View Product">{{product?.Name}}</a></h5>
+                            <p class="card-text">Mã sản phẩm: {{product?.SKU}}</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p class="btn btn-danger btn-block product-price">{{product?.Price | number}} VNĐ
+                                    </p>
+                                    <p class="btn btn-success btn-block" (click)="addToCart(product,1)">Thêm <i
+                                            class="fa fa-shopping-cart"></i></p>
+                                </div>
+                                <div class="col">
+                                    <p class="btn btn-success btn-block promotion-price">
+                                        {{product?.PromotionPrice | number}} VNĐ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-12">
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div> -->
+            </div>
+        </div>
+
+    </div>
+</div>

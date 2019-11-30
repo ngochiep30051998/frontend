@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     public slides: any[] = [];
     public activeSlideIndex: number = 0;
     public noWrapSlides: boolean = false;
-    public items: MenuItem[];
+    public items: MenuItem[] = [];
     public cars: any;
 
     public listCatalog = [];
@@ -44,57 +44,62 @@ export class HomeComponent implements OnInit, OnDestroy {
         for (let i = 0; i < 4; i++) {
             this.addSlide();
         }
-        this.getProductByCatId(1, 'product1');
-        this.getProductByCatId(2, 'product2');
-        this.getProductByCatId(3, 'product3');
-        // this.getListMenuItem();
+        this.getListMenuItem();
 
     }
     ngOnInit() {
 
-        this.items = [
-            {
-                label: 'Hoàng hà mobile',
-                url: '#/product-detail'
-            },
-            {
-                label: 'Thế giới di động'
-            },
-            {
-                label: 'Tech world'
-            },
-            {
-                label: 'Nhật Bảo mobile'
-            },
-            {
-                label: 'Đào Thạch Mobile'
-            },
-            {
-                label: 'Nhật Cường mobile'
-            },
-            {
-                label: 'Bảo Tuyết Mobile'
-            },
-            {
-                label: 'Cellphones'
-            }
-        ];
+        // this.items = [
+        //     {
+        //         label: 'Hoàng hà mobile',
+        //         url: '#/product-detail'
+        //     },
+        //     {
+        //         label: 'Thế giới di động'
+        //     },
+        //     {
+        //         label: 'Tech world'
+        //     },
+        //     {
+        //         label: 'Nhật Bảo mobile'
+        //     },
+        //     {
+        //         label: 'Đào Thạch Mobile'
+        //     },
+        //     {
+        //         label: 'Nhật Cường mobile'
+        //     },
+        //     {
+        //         label: 'Bảo Tuyết Mobile'
+        //     },
+        //     {
+        //         label: 'Cellphones'
+        //     }
+        // ];
     }
 
     getListMenuItem() {
+        this.helperService.showLoading();
         const catalogs = this.apiService.getAllCatalog();
         const providers = this.apiService.getAllProvider();
-        forkJoin([catalogs, providers]).subscribe((res: any) => {
+        Promise.all([catalogs, providers]).then((res: any) => {
             this.listCatalog = res[0].data;
-            this.listProvider = res[1].data;
-            // for (let i = 0; i < 5; i++) {
-            //     const item = {
-
-            //     }
-            // }
-            console.log(res);
+            this.listProvider = res[1].data.splice(0,7);
+            this.getProductByCatId(this.listCatalog[0].CatalogId, 'product1');
+            this.getProductByCatId(this.listCatalog[1].CatalogId, 'product2');
+            this.getProductByCatId(this.listCatalog[2].CatalogId, 'product3');
+            this.listProvider.forEach((provider) => {
+                const item: MenuItem = {
+                    label: provider.Name,
+                    url: `#/provider/${provider.Id}`
+                };
+                this.items.push(item);
+            });
+            this.helperService.hideLoading();
+        }).catch(err => {
+            this.helperService.hideLoading();
+            console.log(err);
         });
-
     }
 
     getProductByCatId(id: number, productList: any) {

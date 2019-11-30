@@ -83,12 +83,24 @@ export class ApiService {
     }
     getAllProvider() {
         const url = this.url + 'provider/list-providers';
-        return this.http.get(url);
+        return new Promise((resolve, reject) => {
+            this.http.get(url).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
     }
 
     getAllCatalog() {
         const url = this.url + 'catalog/list-catalogs';
-        return this.http.get(url);
+        return new Promise((resolve, reject) => {
+            this.http.get(url).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
     }
 
     getProductByCatalogId(catalogid: any) {
@@ -105,13 +117,14 @@ export class ApiService {
 
     getProductByProviderId(providerId: any) {
         const url = `${this.url}provider/list-products/${providerId}`;
-        return new Promise((resolve, reject) => {
-            this.http.get(url).subscribe(res => {
-                resolve(res);
-            }, err => {
-                reject(err);
-            });
-        });
+        return this.http.get(url);
+        // return new Promise((resolve, reject) => {
+        //     this.http.get(url).subscribe(res => {
+        //         resolve(res);
+        //     }, err => {
+        //         reject(err);
+        //     });
+        // });
     }
 
     sighUp(user: any) {

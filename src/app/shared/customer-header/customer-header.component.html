@@ -15,7 +15,7 @@
         </div>
         <div class="p-2 right-item">
             <div class="d-flex justify-content-end">
-                <div class="p-1" style="cursor: pointer;" *ngIf="!user">
+                <div class="p-1" style="cursor: pointer;" *ngIf="!user" (click)="gotoPage('sigh-up')">
                     <a class="nav-link">Đăng ký</a>
                 </div>
                 <div class="p-1 " (click)="openModal()" *ngIf="!user">
@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="p-1" (click)="gotoPage('shopping-cart')" *ngIf="cartService.getTotalProduct() > 0">
-                    <a class="nav-link" style="cursor: pointer;">
+                    <a class="nav-link" class="cart-icon" style="cursor: pointer;">
                         <i class="fa fa-shopping-cart fa-lg"></i>
                         <span class="badge badge-pill badge-danger">{{cartService.getTotalProduct()| number}}</span>
                     </a>

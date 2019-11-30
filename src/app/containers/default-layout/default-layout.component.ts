@@ -40,7 +40,6 @@ export class DefaultLayoutComponent implements OnDestroy {
             await this.apiService.logout();
             this.router.navigate(['admin/login']);
             localStorage.clear();
-            this.cartService.updateCart();
             this.helperService.hideLoading();
         } catch (e) {
             this.helperService.hideLoading();

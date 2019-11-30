@@ -60,4 +60,8 @@ export class CartService {
         this.cart = this.cart.filter(x => x.quantity > 0);
         localStorage.setItem('cart', JSON.stringify(this.cart));
     }
+    public clearCart() {
+        localStorage.removeItem('cart');
+        this.cart = [];
+    }
 }

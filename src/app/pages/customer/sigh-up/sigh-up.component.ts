@@ -50,20 +50,28 @@ export class SighUpComponent implements OnInit {
             }
             const res: any = await this.apiService.sighUp(this.sighUpForm.value);
             if (res.customerId) {
-                this.helperService.hideLoading();
                 this.messageService.add({ severity: 'success', summary: 'Đăng ký thành công' });
                 // const user = {
                 //     email: this.sighUpForm.value.email,
                 //     password: this.sighUpForm.value.password
                 // };
                 // const userInfo: any = await this.apiService.login(user);
-                const userInfo = {
-                    Name: this.sighUpForm.value.name,
-                    Email: this.sighUpForm.value.email,
-                    userId: res.customerId
-                };
-                localStorage.setItem('userInfo', JSON.stringify({ data: userInfo }));
+                // const userInfo = {
+                //     Name: this.sighUpForm.value.name,
+                //     Email: this.sighUpForm.value.email,
+                //     userId: res.customerId,
+                //     roles: [{
+                //         Name: 'Customer'
+                //     }]
+                // };
+                // localStorage.setItem('userInfo', JSON.stringify({ data: userInfo }));
+                const login: any = await this.apiService.login({
+                    email: this.sighUpForm.value.email,
+                    password: this.sighUpForm.value.password
+                });
+                localStorage.setItem('userInfo', JSON.stringify({ data: login.customer }));
                 setTimeout(() => {
+                    this.helperService.hideLoading();
                     this.router.navigate(['/home']);
                 }, 3000);
             }

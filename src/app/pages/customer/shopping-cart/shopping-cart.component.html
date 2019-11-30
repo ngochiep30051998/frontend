@@ -49,9 +49,9 @@
 				<td></td>
 				<td><a href="#" class="btn btn-warning" (click)="gotoPage('home')"><i class="fa fa-angle-left"></i> Tiếp
 						tục mua sắm</a></td>
-				<td colspan="2" class="hidden-xs"></td>
-				<td class="hidden-xs text-center"><strong>Tổng hóa đơn: {{cartService.getTotalPrice() | number}} VNĐ</strong></td>
-				<td><a href="#" class="btn btn-success btn-block" *ngIf="cart?.length >0">Thanh toán <i
+				<!-- <td class="hidden-xs"></td> -->
+				<td colspan="2" class="hidden-xs text-center"><strong>Tổng hóa đơn: {{cartService.getTotalPrice() | number}} VNĐ</strong></td>
+				<td ><a (click)="gotoPage('checkout')" class="btn btn-success btn-block" *ngIf="cart?.length >0">Thanh toán <i
 							class="fa fa-angle-right"></i></a></td>
 			</tr>
 		</tfoot>

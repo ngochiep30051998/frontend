@@ -19,6 +19,9 @@ header{
         }
         .right-item{
             width: 20%;
+            .nav-link{
+                display: inline-flex;
+            }
         }
     }
     .top-menu{

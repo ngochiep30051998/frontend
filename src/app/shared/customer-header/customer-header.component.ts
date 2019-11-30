@@ -17,7 +17,7 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
     @ViewChild('modalLogin', { static: true }) modalLogin: ElementRef;
 
     public modalRef: BsModalRef;
-    public items: MenuItem[];
+    public items: MenuItem[] = [];
     public loginForm: FormGroup;
     public userRoles = USER_ROLES;
     public user: any;
@@ -25,6 +25,7 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
     public modalConfig: ModalOptions = {
         animated: true
     };
+    public listCatalog = [];
     constructor(
         public modalService: BsModalService,
         private formBuilder: FormBuilder,
@@ -41,26 +42,27 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.items = [
-            {
-                label: 'Apple', icon: 'fa fa-fw fa-apple',
-            },
-            {
-                label: 'Huawei', icon: 'fa fa-fw fa-mobile',
-            },
-            {
-                label: 'Oppo', icon: 'fa fa-fw fa-android',
-            },
-            {
-                label: 'Samsung', icon: 'fa fa-fw fa-android',
-            },
-            {
-                label: 'ViVo', icon: 'fa fa-fw fa-android',
-            },
-            {
-                label: 'Realme', icon: 'fa fa-fw fa-android',
-            },
-        ];
+        this.getListCatalog();
+        // this.items = [
+        //     {
+        //         label: 'Apple', icon: 'fa fa-fw fa-apple',
+        //     },
+        //     {
+        //         label: 'Huawei', icon: 'fa fa-fw fa-mobile',
+        //     },
+        //     {
+        //         label: 'Oppo', icon: 'fa fa-fw fa-android',
+        //     },
+        //     {
+        //         label: 'Samsung', icon: 'fa fa-fw fa-android',
+        //     },
+        //     {
+        //         label: 'ViVo', icon: 'fa fa-fw fa-android',
+        //     },
+        //     {
+        //         label: 'Realme', icon: 'fa fa-fw fa-android',
+        //     },
+        // ];
         this.user = JSON.parse(localStorage.getItem('userInfo'));
     }
 
@@ -107,7 +109,7 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
             const res: any = await this.apiService.logout();
 
             localStorage.clear();
-            this.cartService.updateCart();
+            this.cartService.clearCart();
             this.user = null;
             if (this.router.url === '/shopping-cart') {
                 this.router.navigate(['home']);
@@ -118,8 +120,26 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
             console.log(e.error.message);
         }
     }
-    gotoPage(page){
+    gotoPage(page) {
         this.router.navigate([page]);
+    }
+
+    getListCatalog() {
+        this.helperService.showLoading();
+        this.apiService.getAllCatalog().then((res: any) => {
+            this.listCatalog = res.data.slice(0, 7);
+            this.listCatalog.forEach((cat) => {
+                const item: MenuItem = {
+                    label: cat.Brand,
+                    url: `#/product-category/${cat.CatalogId}`,
+                    icon: cat.Brand === 'Apple' ? 'fa fa-fw fa-apple' : 'fa fa-fw fa-android'
+                };
+                this.items.push(item);
+            });
+            this.helperService.hideLoading();
+        }).catch(err => {
+            this.helperService.hideLoading();
+        });
     }
     get f() { return this.loginForm.controls; }
     ngOnDestroy() {
