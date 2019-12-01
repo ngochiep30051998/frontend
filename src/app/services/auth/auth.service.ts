@@ -40,4 +40,8 @@ export class AuthService {
         return false;
     }
 
+    public getCurrentUser() {
+        return JSON.parse(localStorage.getItem('userInfo')).data.user;
+    }
+
 }

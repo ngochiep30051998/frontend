@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api/api.service';
 import { HelperService } from '../../../services/helper/helper.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
     selector: 'app-product-management',
@@ -17,10 +18,14 @@ export class ProductManagementComponent implements OnInit {
     constructor(
         private apiService: ApiService,
         public helperService: HelperService,
-        public router: Router
+        public router: Router,
+        public authService: AuthService
     ) {
-        this.getListProduct(0);
-
+        if (this.authService.isSupperAdmin()) {
+            this.getListProduct(0);
+        } else if (this.authService.isAdmin() && !this.authService.isSupperAdmin()) {
+            this.getProductByProvier();
+        }
     }
 
     ngOnInit() {
@@ -39,6 +44,18 @@ export class ProductManagementComponent implements OnInit {
         });
     }
 
+    async getProductByProvier() {
+        const user = this.authService.getCurrentUser();
+        this.apiService.getProductByProviderId(user.Id).subscribe((res: any) => {
+            this.listProduct = res.data;
+            this.totalPage = [1];
+            this.totalItem = res.data.length;
+            this.currentPage = 0;
+            this.helperService.hideLoading();
+        }, err => {
+            this.helperService.hideLoading();
+        })
+    }
     goToProductDetail(productId: any) {
         this.router.navigate(['admin/product', productId]);
     }

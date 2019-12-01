@@ -70,4 +70,9 @@ export const navItemsSupperAdmin: NavData[] = [
     url: '/admin/shop-management',
     icon: 'icon-puzzle'
   },
+  {
+    name: 'Danh sách sản phẩm',
+    url: '/admin/product-management',
+    icon: 'icon-puzzle'
+  }
 ];
