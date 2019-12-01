@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { HelperService } from '../helper/helper.service';
 
 @Injectable({
     providedIn: 'root'
@@ -7,7 +8,9 @@ import { BehaviorSubject } from 'rxjs';
 export class CartService {
     public cart: any = [];
     public cartSubject = new BehaviorSubject({});
-    constructor() {
+    constructor(
+        private helperService: HelperService
+    ) {
         this.cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
     }
 
@@ -20,6 +23,7 @@ export class CartService {
             this.cart.push(product);
         }
         this.updateCart();
+        this.helperService.showAlert('success','Thành công','Sản phẩm đã được thêm vào rỏ hàng');
         // localStorage.setItem('cart', JSON.stringify(this.cart));
         // this.cartSubject.next(this.cart);
     }
