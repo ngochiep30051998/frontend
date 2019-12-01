@@ -37,7 +37,8 @@
             },
             "scripts": [
               "node_modules/chart.js/dist/Chart.min.js",
-              "node_modules/quill/dist/quill.js"
+              "node_modules/quill/dist/quill.js",
+              "node_modules/jquery/dist/jquery.min.js"
             ]
           },
           "configurations": {
@@ -86,7 +87,8 @@
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
               "node_modules/chart.js/dist/Chart.min.js",
-              "node_modules/quill/dist/quill.js"
+              "node_modules/quill/dist/quill.js",
+              "node_modules/jquery/dist/jquery.min.js"
             ],
             "styles": [
               "node_modules/flag-icon-css/css/flag-icon.css",

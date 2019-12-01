@@ -46,7 +46,7 @@ export class ProductManagementComponent implements OnInit {
 
     async getProductByProvier() {
         const user = this.authService.getCurrentUser();
-        this.apiService.getProductByProviderId(user.Id).subscribe((res: any) => {
+        this.apiService.getProductByProviderId(user.ProviderId).subscribe((res: any) => {
             this.listProduct = res.data;
             this.totalPage = [1];
             this.totalItem = res.data.length;
@@ -60,12 +60,13 @@ export class ProductManagementComponent implements OnInit {
         this.router.navigate(['admin/product', productId]);
     }
 
-    deleteProduct(productId) {
+    deleteProduct(productId, index) {
         this.helperService.showLoading();
         this.apiService.deleteProduct(productId).then((res: any) => {
             console.log(res)
             this.helperService.showAlert('success', res.message);
-            this.getListProduct(this.currentPage);
+            // this.getListProduct(this.currentPage);
+            this.listProduct.splice(index, 1);
             this.helperService.hideLoading();
         }, err => {
             console.log(err);
