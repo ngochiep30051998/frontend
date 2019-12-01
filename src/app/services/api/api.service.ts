@@ -193,4 +193,15 @@ export class ApiService {
             });
         });
     }
+
+    checkOut(req) {
+        const url = this.url + 'order/create-order';
+        return new Promise((resolve, reject) => {
+            this.http.post(url, req).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
 }

@@ -64,4 +64,8 @@ export class CartService {
         localStorage.removeItem('cart');
         this.cart = [];
     }
+
+    public getCartItem() {
+        return JSON.parse(localStorage.getItem('cart'));
+    }
 }

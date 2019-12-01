@@ -1,23 +1,52 @@
 <div class="row">
+    <div class="col-md-12">
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" value="option1" [(ngModel)]="checkoutType">Thanh toán khi
+                nhận hàng
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" value="option2" [(ngModel)]="checkoutType">Thanh toán qua
+                thẻ
+            </label>
+        </div>
+    </div>
+</div>
+<div class="row" *ngIf="checkoutType === 'option1'">
     <div class="col-sm-12">
         <div class="card">
-            <form action="" method="post">
+            <form action="" [formGroup]="checkoutForm" method="post" (ngSubmit)="checkOut()">
                 <div class="card-header">
                     <strong>Thanh toán</strong>
                 </div>
                 <div class="card-body">
-
+                    <div class="text-danger"
+                        *ngIf="checkoutForm?.controls?.customerAddress?.errors?.required && checkoutForm?.controls?.customerAddress?.touched">
+                        Bạn phải nhập tên ngân hàng
+                    </div>
                     <div class="form-group">
                         <label for="nf-email">Địa chỉ người nhận</label>
-                        <textarea class="form-control" id="textarea-input" name="textarea-input" rows="9"
-                            placeholder="Content.."></textarea>
+                        <textarea class="form-control" formControlName="customerAddress" id="textarea-input"
+                            name="textarea-input" rows="9" placeholder="Địa chỉ"></textarea>
+                    </div>
+                    <div class="text-danger"
+                        *ngIf="checkoutForm?.controls?.customerPhone?.errors?.required && checkoutForm?.controls?.customerPhone?.touched">
+                        Bạn phải nhập tên ngân hàng
                     </div>
                     <div class="form-group col-md-4">
                         <label for="nf-password">Số điện thoại người nhận</label>
-                        <input type="tel" id="nf-password" class="form-control" placeholder="0968958647">
+                        <input type="tel" id="nf-password" formControlName="customerPhone" class="form-control"
+                            placeholder="0968958647">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Phí vận chuyển</label>
+                        <input type="number" disabled formControlName="shipmentPrice" class="form-control"
+                            placeholder="0968958647">
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-sm btn-primary">Thanh toán</button>
+                        <button class="btn btn-sm btn-primary" type="submit">Thanh toán</button>
                         <button class="btn btn-sm btn-danger" type="reset"> Reset</button>
                     </div>
 
@@ -28,3 +57,18 @@
     <!--/.col-->
 </div>
 <!--/.row-->
+
+
+<div class="row" *ngIf="checkoutType === 'option2'">
+    <div class="col-sm-12">
+        <div class="icon-container">
+            <i class="fa fa-cc-visa" style="color:navy;"></i>
+            <i class="fa fa-cc-amex" style="color:blue;"></i>
+            <i class="fa fa-cc-mastercard" style="color:red;"></i>
+            <i class="fa fa-cc-discover" style="color:orange;"></i>
+        </div>
+        <button class="btn btn-pill btn-danger" type="button">Thanh toán</button>
+
+    </div>
+    <!--/.col-->
+</div>
