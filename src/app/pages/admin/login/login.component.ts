@@ -44,26 +44,27 @@ export class LoginComponent implements OnInit {
                 return;
             }
             const res: any = await this.apiService.login(user);
-            localStorage.setItem('adminInfo', JSON.stringify({ data: res.accessToken }));
-            // this.messageService.add({ severity: 'success', summary: 'Đăng nhập thành công' });
-            this.router.navigate(['admin/dashboard']);
-            // if (res.customer.roles.find(x => x.Name === ADMIN.name) || res.customer.roles.find(x => x.Name === SUPER_ADMIN.name)) {
 
-            // } else {
-            //     // localStorage.setItem('userInfo', JSON.stringify({ data: res.customer }));
-            //     await this.apiService.logout();
-            // tslint:disable-next-line:max-line-length
-            //     this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công', detail: 'Bạn không có quyền đăng nhập vảo trang quản trị' });
-            // }
+            // this.messageService.add({ severity: 'success', summary: 'Đăng nhập thành công' });
+            if (res.user.roles.find(x => x.Name === ADMIN.name) || res.user.roles.find(x => x.Name === SUPER_ADMIN.name)) {
+                localStorage.setItem('userInfo', JSON.stringify({ data: res }));
+                this.router.navigate(['admin/dashboard']);
+
+            } else {
+                // localStorage.setItem('userInfo', JSON.stringify({ data: res.customer }));
+                await this.apiService.logout();
+                // tslint:disable-next-line:max-line-length
+                this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công', detail: 'Bạn không có quyền đăng nhập vảo trang quản trị' });
+            }
             this.helperService.hideLoading();
 
         } catch (e) {
             this.helperService.hideLoading();
             console.log(e)
-            if(e.error && e.error.message){
+            if (e.error && e.error.message) {
                 this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công', detail: e.error.message });
                 return;
-            } 
+            }
             this.messageService.add({ severity: 'error', summary: 'Đăng nhập không thành công' });
         }
     }

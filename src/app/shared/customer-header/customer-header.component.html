@@ -22,7 +22,7 @@
                     <a class="nav-link" style="cursor: pointer;">Đăng nhập</a>
                 </div>
                 <div class="p-2 " *ngIf="user">
-                    <a style="cursor: pointer;">xin chào: {{user?.data?.Name}}</a>
+                    <a style="cursor: pointer;">xin chào: {{user?.Name}}</a>
                 </div>
 
                 <div class="p-1" (click)="gotoPage('shopping-cart')" *ngIf="cartService.getTotalProduct() > 0">
@@ -35,6 +35,12 @@
                     <a class="nav-link" style="cursor: pointer;"><i style="color: red;" class="fa fa-sign-out "></i></a>
                 </div>
             </div>
+            <div class="d-flex justify-content-end" *ngIf="user"  (click)="gotoPage('sighup-provider')">
+                <div class="p-2 " >
+                    <a style="cursor: pointer;">Đăng ký bán hàng</a>
+                </div>
+            </div>
+
         </div>
     </div>
     <div class="d-flex justify-content-center top-menu">
@@ -90,4 +96,4 @@
     </form>
 </ng-template>
 
-<p-toast position="top-left"></p-toast>
+<!-- <p-toast position="top-left"></p-toast> -->

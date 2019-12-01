@@ -5,8 +5,8 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } fro
 export class CommonHttpInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let headers: any;
-        if (localStorage.getItem('adminInfo') && JSON.parse(localStorage.getItem('adminInfo')).data) {
-            headers = new HttpHeaders().set('x-access-token', JSON.parse(localStorage.getItem('adminInfo')).data);
+        if (localStorage.getItem('userInfo') && JSON.parse(localStorage.getItem('userInfo')).data) {
+            headers = new HttpHeaders().set('x-access-token', JSON.parse(localStorage.getItem('userInfo')).data.accessToken);
         }
         const customReq = request.clone({
             withCredentials: true,

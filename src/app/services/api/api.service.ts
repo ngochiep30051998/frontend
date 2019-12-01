@@ -71,24 +71,24 @@ export class ApiService {
         });
     }
     updateProduct(product: any) {
-        const url = this.url + 'product/update-product-extends';
-        const formData: FormData = new FormData();
-        formData.append('amount', product.amount);
-        formData.append('catalogId', product.catalogId);
-        formData.append('content', product.content);
-        formData.append('image', product.image);
-        for (const key in product.imageList) {
-            if (product.imageList[key]) {
-                formData.append('imageList', product.imageList[key]);
-            }
-        }
-        formData.append('name', product.name);
-        formData.append('price', product.price);
-        formData.append('promotionPrice', product.promotionPrice);
-        formData.append('sku', product.sku);
-        formData.append('topFeature', product.topFeature);
+        const url = this.url + 'product/update-product-normal';
+        // const formData: FormData = new FormData();
+        // formData.append('amount', product.amount);
+        // formData.append('catalogId', product.catalogId);
+        // formData.append('content', product.content);
+        // formData.append('image', product.image);
+        // for (const key in product.imageList) {
+        //     if (product.imageList[key]) {
+        //         formData.append('imageList', product.imageList[key]);
+        //     }
+        // }
+        // formData.append('name', product.name);
+        // formData.append('price', product.price);
+        // formData.append('promotionPrice', product.promotionPrice);
+        // formData.append('sku', product.sku);
+        // formData.append('topFeature', product.topFeature);
         return new Promise((resolve, reject) => {
-            this.http.put(url, formData).subscribe(res => {
+            this.http.put(url, product).subscribe(res => {
                 resolve(res);
             }, err => {
                 reject(err);
@@ -130,29 +130,16 @@ export class ApiService {
     getProductByCatalogId(catalogid: any) {
         const url = `${this.url}catalog/list-products/${catalogid}`;
         return this.http.get(url);
-        // return new Promise((resolve, reject) => {
-        //     this.http.get(url).subscribe(res => {
-        //         resolve(res);
-        //     }, err => {
-        //         reject(err);
-        //     });
-        // });
+
     }
 
     getProductByProviderId(providerId: any) {
         const url = `${this.url}provider/list-products/${providerId}`;
         return this.http.get(url);
-        // return new Promise((resolve, reject) => {
-        //     this.http.get(url).subscribe(res => {
-        //         resolve(res);
-        //     }, err => {
-        //         reject(err);
-        //     });
-        // });
     }
 
     sighUp(user: any) {
-        const url = this.url + 'auth/v2/register';
+        const url = this.url + 'auth/register';
         return new Promise((resolve, reject) => {
             this.http.post(url, user).subscribe(res => {
                 resolve(res);
@@ -165,7 +152,41 @@ export class ApiService {
     deleteProduct(productId) {
         const url = this.url + 'product/delete-product';
         return new Promise((resolve, reject) => {
-            this.http.delete(url, productId).subscribe(res => {
+            this.http.request('delete', url, { body: { productId: productId } }).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
+
+    registerProvider(req) {
+        const url = this.url + 'provider/register-provider';
+        return new Promise((resolve, reject) => {
+            this.http.post(url, req).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
+    upgradeProvider(providerId) {
+        const url = this.url + 'provider/accept-provider';
+        const req = {
+            providerId: providerId
+        };
+        return new Promise((resolve, reject) => {
+            this.http.post(url, req).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
+    deleteProvider(providerId) {
+        const url = this.url + 'provider/remove-provider';
+        return new Promise((resolve, reject) => {
+            this.http.request('delete', url, { body: { providerId: providerId } }).subscribe(res => {
                 resolve(res);
             }, err => {
                 reject(err);

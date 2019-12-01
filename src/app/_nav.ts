@@ -29,7 +29,7 @@ export interface NavData {
   wrapper?: NavWrapper;
 }
 
-export const navItems: NavData[] = [
+export const navItemsAdmin: NavData[] = [
   {
     title: true,
     name: 'Danh mục'
@@ -52,15 +52,22 @@ export const navItems: NavData[] = [
     ]
   },
   {
-    name: 'Quản lý nhà cung cấp',
-    url: '/admin/shop-management',
-    icon: 'icon-puzzle'
-  },
-  {
     name: 'Quản lý đơn hàng',
     url: '/buttons',
     icon: 'icon-cursor',
     children: [
     ]
   }
+];
+
+export const navItemsSupperAdmin: NavData[] = [
+  {
+    title: true,
+    name: 'Danh mục'
+  },
+  {
+    name: 'Quản lý nhà cung cấp',
+    url: '/admin/shop-management',
+    icon: 'icon-puzzle'
+  },
 ];

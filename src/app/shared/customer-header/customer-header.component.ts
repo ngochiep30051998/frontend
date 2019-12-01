@@ -36,34 +36,18 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
         public cartService: CartService
     ) {
         this.initForm();
+
         // this.cartService.cartSubject.subscribe((res: any) => {
         //     console.log(res);
         // });
     }
 
     ngOnInit() {
+        const u = JSON.parse(localStorage.getItem('userInfo'));
+        if (u && u.data && u.data.user) {
+            this.user = u.data.user;
+        }
         this.getListCatalog();
-        // this.items = [
-        //     {
-        //         label: 'Apple', icon: 'fa fa-fw fa-apple',
-        //     },
-        //     {
-        //         label: 'Huawei', icon: 'fa fa-fw fa-mobile',
-        //     },
-        //     {
-        //         label: 'Oppo', icon: 'fa fa-fw fa-android',
-        //     },
-        //     {
-        //         label: 'Samsung', icon: 'fa fa-fw fa-android',
-        //     },
-        //     {
-        //         label: 'ViVo', icon: 'fa fa-fw fa-android',
-        //     },
-        //     {
-        //         label: 'Realme', icon: 'fa fa-fw fa-android',
-        //     },
-        // ];
-        this.user = JSON.parse(localStorage.getItem('userInfo'));
     }
 
     openModal() {
@@ -90,8 +74,8 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
             }
 
             const res: any = await this.apiService.login(user);
-            localStorage.setItem('userInfo', JSON.stringify({ data: res.accessToken }));
-            this.user = JSON.parse(localStorage.getItem('userInfo'));
+            localStorage.setItem('userInfo', JSON.stringify({ data: res }));
+            this.user = JSON.parse(localStorage.getItem('userInfo')).data.user;
 
             this.helperService.hideLoading();
             this.messageService.add({ severity: 'success', summary: 'Đăng nhập thành công' });
@@ -106,12 +90,12 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
     async logout() {
         this.helperService.showLoading();
         try {
-            const res: any = await this.apiService.logout();
+            // const res: any = await this.apiService.logout();
 
             localStorage.clear();
             this.cartService.clearCart();
             this.user = null;
-            if (this.router.url === '/shopping-cart') {
+            if (this.router.url === '/shopping-cart' || this.router.url === 'sighup-provider') {
                 this.router.navigate(['home']);
             }
             this.helperService.hideLoading();

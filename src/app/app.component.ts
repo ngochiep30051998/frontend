@@ -6,7 +6,7 @@ import { Router, NavigationEnd } from '@angular/router';
   selector: 'body',
   template: `<router-outlet></router-outlet>
     <ngx-spinner type="line-scale" size="medium"></ngx-spinner>
-    <p-toast position="top-left"></p-toast>
+    <p-toast position="bottom-center"></p-toast>
   `
 })
 export class AppComponent implements OnInit {

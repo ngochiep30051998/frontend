@@ -13,16 +13,16 @@ export class AuthService {
     public isCustomer() {
         this.user = JSON.parse(localStorage.getItem('userInfo'));
         if (this.user && this.user.data) {
-            return this.user.data.roles.find(u => u.Name === CUSTOMER.name) ? true : false;
+            return this.user.data.user.roles.find(u => u.Name === CUSTOMER.name) ? true : false;
         }
         return false;
     }
 
     public isAdmin() {
-        this.user = JSON.parse(localStorage.getItem('adminInfo'));
-        // if (this.user && this.user.data) {
-        //     return this.user.data.roles.find(u => u.Name === ADMIN.name) ? true : false;
-        // }
+        this.user = JSON.parse(localStorage.getItem('userInfo'));
+        if (this.user && this.user.data) {
+            return this.user.data.user.roles.find(u => u.Name === ADMIN.name) ? true : false;
+        }
         if (this.user && this.user.data) {
             return true;
         }
@@ -30,10 +30,10 @@ export class AuthService {
     }
 
     public isSupperAdmin() {
-        this.user = JSON.parse(localStorage.getItem('adminInfo'));
-        // if (this.user && this.user.data) {
-        //     return this.user.data.roles.find(u => u.Name === SUPER_ADMIN.name) ? true : false;
-        // }
+        this.user = JSON.parse(localStorage.getItem('userInfo'));
+        if (this.user && this.user.data) {
+            return this.user.data.user.roles.find(u => u.Name === SUPER_ADMIN.name) ? true : false;
+        }
         if (this.user && this.user.data) {
             return true;
         }

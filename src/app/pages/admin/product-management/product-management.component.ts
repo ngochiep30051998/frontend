@@ -47,6 +47,8 @@ export class ProductManagementComponent implements OnInit {
         this.helperService.showLoading();
         this.apiService.deleteProduct(productId).then((res: any) => {
             console.log(res)
+            this.helperService.showAlert('success', res.message);
+            this.getListProduct(this.currentPage);
             this.helperService.hideLoading();
         }, err => {
             console.log(err);

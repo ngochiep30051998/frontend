@@ -1,1 +1,51 @@
-<p>shop-management works!</p>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Tên nhà cung cấp</th>
+                <th scope="col">Email</th>
+                <th scope="col">SĐT</th>
+                <th scope="col">Chủ sở hữu</th>
+                <th scope="col">SĐT chủ sở hữu</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let provider of listProvider; let i = index;">
+                <th scope="row">{{i+1}}</th>
+                <td>{{provider?.Name}}</td>
+                <td>{{provider?.Email}}</td>
+                <td>{{provider?.Phone}}</td>
+                <td>{{provider?.OwnerName}}</td>
+                <td>{{provider?.OwnerPhone}}</td>
+                <td>
+                    <button type="button" class="btn btn-brand btn-sm btn-facebook mr-1" *ngIf="provider?.Status === 0"
+                        style="margin-bottom: 4px" (click)="upgradeProvider(provider?.Id,i)">
+                        <i class="fa fa-sort-up"></i>
+                        <span>Nâng cấp</span>
+                    </button>
+                </td>
+                <td>
+                    <button (click)="deleteProvider(provider?.Id,i)" type="button" class="btn btn-brand btn-sm btn-youtube mr-1" style="margin-bottom: 4px">
+                        <i class="fa fa-trash"></i>
+                        <span>Xóa</span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+        <li *ngFor="let page of totalPage;" [className]="page === currentPage ? 'page-item active' : ' page-item'" (click)="getListProduct(page)">
+            <a class="page-link">{{page+1}}</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul> -->
+</div>
+<div class="row">
+    <div class="col-xs-12 col-12">
+        <!-- <pagination [totalItems]="totalItem" [rotate]="true" [itemsPerPage]="20" [maxSize]="10" (pageChanged)="getListProduct($event?.page)" [(ngModel)]="currentPage"></pagination> -->
+    </div>
+</div>

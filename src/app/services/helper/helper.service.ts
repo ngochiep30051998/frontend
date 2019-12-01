@@ -21,4 +21,13 @@ export class HelperService {
     public showAlert(type: any, summary?: any, detail?: any) {
         this.messageService.add({ severity: type, summary: summary, detail: detail });
     }
+    public markFormGroupTouched(formGroup) {
+        (Object as any).values(formGroup.controls).forEach(control => {
+            control.markAsTouched();
+
+            if (control.controls) {
+                this.markFormGroupTouched(control);
+            }
+        });
+    }
 }

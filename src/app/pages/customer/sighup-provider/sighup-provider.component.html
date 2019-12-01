@@ -1,0 +1,142 @@
+<div class="app-body">
+    <main class="main d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card mx-4">
+                        <div class="card-body p-4">
+                            <form [formGroup]="sighUpForm" (ngSubmit)="sighUp()">
+                                <h1>Đăng ký bán hàng</h1>
+                                <p class="text-muted">Nhập thông tin</p>
+                                <div class="text-danger"
+                                    *ngIf="sighUpForm?.controls?.name?.errors?.required && sighUpForm?.controls?.name?.touched">
+                                    Bạn phải nhập tên cửa hàng
+                                </div>
+                                <div>
+                                    Tên cửa hàng
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-user"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" formControlName="name"
+                                        placeholder="Tên cửa hàng" autocomplete="name" required>
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="sighUpForm?.controls?.phone?.errors?.required && sighUpForm?.controls?.phone?.touched">
+                                    Bạn phải nhập số điện thoại
+                                </div>
+                                <div>
+                                    Số điện thoại
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-phone"></i></span>
+                                    </div>
+                                    <input type="tel" class="form-control" formControlName="phone"
+                                        placeholder="Số điện thoại" autocomplete="phone" required>
+                                </div>
+                                <div>
+                                    Địa chỉ
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-home"></i></span>
+                                    </div>
+                                    <textarea pInputTextarea formControlName="address" class="form-control"
+                                        placeholder="địa chỉ"></textarea>
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="sighUpForm?.controls?.email?.errors?.required && sighUpForm?.controls?.email?.touched">
+                                    Bạn phải nhập đúng định dạng email
+                                </div>
+                                <div>
+                                    Email
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@</span>
+                                    </div>
+                                    <input type="text" class="form-control" formControlName="email" placeholder="Email"
+                                        autocomplete="email" required>
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="sighUpForm?.controls?.cardNumber?.errors?.required && sighUpForm?.controls?.cardNumber?.touched">
+                                    Bạn phải nhập số thẻ
+                                </div>
+                                <div>
+                                    Số thẻ
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-home"></i></span>
+                                    </div>
+                                    <input class="form-control" formControlName="cardNumber" placeholder="số thẻ"
+                                        type="text" autocomplete="cardNumber" required>
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="sighUpForm?.controls?.cardHolder?.errors?.required && sighUpForm?.controls?.cardHolder?.touched">
+                                    Bạn phải nhập tên chủ thẻ
+                                </div>
+                                <div>
+                                    Tên chủ thẻ
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-home"></i></span>
+                                    </div>
+                                    <input class="form-control" formControlName="cardHolder" placeholder="Tên ngân hàng"
+                                        type="text" autocomplete="cardHolder">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="sighUpForm?.controls?.cardDate?.errors?.required && sighUpForm?.controls?.cardDate?.touched">
+                                    Bạn phải nhập ngày hết hạn
+                                </div>
+                                <div>
+                                    Ngày hết hạn
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-home"></i></span>
+                                    </div>
+                                    <input class="form-control" formControlName="cardDate" type="month"
+                                        autocomplete="cardDate">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="sighUpForm?.controls?.bank?.errors?.required && sighUpForm?.controls?.bank?.touched">
+                                    Bạn phải nhập tên ngân hàng
+                                </div>
+                                <div>
+                                    Tên ngân hàng
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-home"></i></span>
+                                    </div>
+                                    <input class="form-control" formControlName="bank" placeholder="Tên ngân hàng"
+                                        type="text" autocomplete="bank">
+                                </div>
+                                <div class="text-danger"
+                                    *ngIf="sighUpForm?.controls?.accountNumber?.errors?.required && sighUpForm?.controls?.accountNumber?.touched">
+                                    Bạn phải nhập số tài khoản
+                                </div>
+                                <div>
+                                    Số tài khoản
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-home"></i></span>
+                                    </div>
+                                    <input class="form-control" formControlName="accountNumber"
+                                        placeholder="số tài khoản" type="text" autocomplete="accountNumber" required>
+                                </div>
+
+                                <button type="submit" class="btn btn-block btn-success">Gửi yêu cầu</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

@@ -69,7 +69,7 @@ export class SighUpComponent implements OnInit {
                     email: this.sighUpForm.value.email,
                     password: this.sighUpForm.value.password
                 });
-                localStorage.setItem('userInfo', JSON.stringify({ data: login.customer }));
+                localStorage.setItem('userInfo', JSON.stringify({ data: login }));
                 setTimeout(() => {
                     this.helperService.hideLoading();
                     this.router.navigate(['/home']);

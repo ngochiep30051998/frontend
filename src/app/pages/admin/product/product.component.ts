@@ -80,6 +80,7 @@ export class ProductComponent implements OnInit {
             const product = this.productForm.value;
             const res = await this.apiService.addProduct(product);
             this.helperService.hideLoading();
+            this.helperService.showAlert('success', 'thêm mới thành công')
         } catch (e) {
             console.log(e)
             this.helperService.hideLoading();
@@ -109,6 +110,7 @@ export class ProductComponent implements OnInit {
             product.productId = parseInt(this.productId);
             const res = await this.apiService.updateProduct(product);
             this.helperService.hideLoading();
+            this.helperService.showAlert('success', 'Cập nhật thành công')
         } catch (e) {
             console.log(e)
             this.helperService.hideLoading();

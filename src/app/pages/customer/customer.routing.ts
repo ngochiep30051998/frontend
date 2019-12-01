@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CustomerComponent } from './customer.component';
+import { CustomerAuthGuard } from '../../services/auth/customer-auth.guard';
 
 // Import Containers
 
@@ -37,6 +38,11 @@ export const routes: Routes = [
       {
         path: 'checkout',
         loadChildren: () => import('../customer/check-out/check-out.module').then(m => m.CheckOutModule)
+      },
+      {
+        path: 'sighup-provider',
+        canActivate: [CustomerAuthGuard],
+        loadChildren: () => import('../customer/sighup-provider/sighup-provider.module').then(m => m.SighupProviderModule)
       }
     ]
   },
