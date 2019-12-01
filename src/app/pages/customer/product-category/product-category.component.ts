@@ -16,6 +16,7 @@ export class ProductCategoryComponent implements OnInit {
     public items: MenuItem[];
     public listProduct: any = [];
     public catId: any;
+    public listProvier: any = [];
     constructor(
         private apiService: ApiService,
         private helperService: HelperService,
@@ -24,32 +25,15 @@ export class ProductCategoryComponent implements OnInit {
         public cartService: CartService,
         public authService: AuthService
     ) {
-        this.activatedRoute.paramMap.subscribe((res:any)=>{
+        this.activatedRoute.paramMap.subscribe((res: any) => {
             this.catId = res.get('catId');
             this.getProduct();
         });
-        // this.catId = this.activatedRoute.snapshot.paramMap.get('catId');
+        this.getListProvider();
     }
 
     ngOnInit() {
-        // this.getProduct();
-        this.items = [
-            {
-                label: 'TV', icon: 'fa fa-fw fa-check',
-            },
-            {
-                label: 'Sports', icon: 'fa fa-fw fa-soccer-ball-o',
-            },
-            {
-                label: 'TV', icon: 'fa fa-fw fa-check',
-            },
-            {
-                label: 'TV', icon: 'fa fa-fw fa-check',
-            },
-            {
-                label: 'TV', icon: 'fa fa-fw fa-check',
-            },
-        ];
+
     }
 
     getProduct() {
@@ -76,5 +60,11 @@ export class ProductCategoryComponent implements OnInit {
 
     gotoProductDetail(productId: any) {
         this.router.navigate(['product-detail', productId]);
+    }
+
+    getListProvider() {
+        this.apiService.getAllProvider().then((res: any) => {
+            this.listProvier = res.data;
+        });
     }
 }
