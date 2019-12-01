@@ -9,7 +9,7 @@
                 <th scope="col">Giá sản phẩm</th>
                 <th scope="col">giảm giá</th>
                 <th scope="col">Trạng thái</th>
-                <th scope="col"></th>
+                <th scope="col" *ngIf="!authService.isSupperAdmin()"></th>
             </tr>
         </thead>
         <tbody>
@@ -21,7 +21,7 @@
                 <td>{{product?.Price}}</td>
                 <td>{{product?.PromotionPrice}}</td>
                 <td>{{product.Status ? 'Còn hàng': 'Hết hàng'}}</td>
-                <td>
+                <td *ngIf="!authService.isSupperAdmin()">
                     <button type="button" (click)="goToProductDetail(product?.Id)"
                         class="btn btn-brand btn-sm btn-facebook mr-1" style="margin-bottom: 4px">
                         <i class="fa fa-edit"></i>
