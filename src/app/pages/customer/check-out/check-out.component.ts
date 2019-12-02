@@ -5,14 +5,24 @@ import { ApiService } from '../../../services/api/api.service';
 import { HelperService } from '../../../services/helper/helper.service';
 import { CartService } from '../../../services/shoppingCart/cart.service';
 import { AuthService } from '../../../services/auth/auth.service';
-
+import { OnePayDomestic } from 'vn-payments';
+import { OnePayInternational } from 'vn-payments';
+import { VNPay } from 'vn-payments';
+import { SohaPay } from 'vn-payments';
+import { OnePayCheckoutPayload } from 'vn-payments/src/onepay';
+import { from } from 'rxjs';
 @Component({
     selector: 'app-check-out',
     templateUrl: './check-out.component.html',
     styleUrls: ['./check-out.component.scss']
 })
 export class CheckOutComponent implements OnInit {
-
+    public onepayIntl = new OnePayInternational({
+        paymentGateway: 'https://mtf.onepay.vn/vpcpay/vpcpay.op',
+        merchant: 'TESTONEPAY',
+        accessCode: '6BEB2546',
+        secureSecret: '6D0870CDE5F24F34F3915FB0045120DB',
+    });
     public checkoutForm: FormGroup;
     public checkoutType = 'option1';
     constructor(
@@ -106,5 +116,16 @@ export class CheckOutComponent implements OnInit {
             amount: amount * 100
         });
 
+    }
+
+    checkout() {
+        const checkoutData: OnePayCheckoutPayload = {
+            amount: 10,
+            customerId: 'hiep@gmail.com',
+            currency: 'VND',
+        };
+        this.onepayIntl.buildCheckoutUrl(checkoutData).then((checkoutUrl: any) => {
+            console.log(checkoutUrl);
+        });
     }
 }
