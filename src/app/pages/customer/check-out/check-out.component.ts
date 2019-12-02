@@ -5,7 +5,7 @@ import { ApiService } from '../../../services/api/api.service';
 import { HelperService } from '../../../services/helper/helper.service';
 import { CartService } from '../../../services/shoppingCart/cart.service';
 import { AuthService } from '../../../services/auth/auth.service';
-
+declare let vnpay: any;
 @Component({
     selector: 'app-check-out',
     templateUrl: './check-out.component.html',
@@ -29,6 +29,7 @@ export class CheckOutComponent implements OnInit {
 
     ngOnInit() {
         this.loadStripe();
+        this.loadvnpay();
     }
 
     initForm() {
@@ -64,7 +65,7 @@ export class CheckOutComponent implements OnInit {
                 listProducts: listProducts
             };
             checkOutValue = { ...checkOutValue, ...this.checkoutForm.value };
-            const res: any = await this.apiService.checkOut(checkOutValue);
+            // const res: any = await this.apiService.checkOut(checkOutValue);
             this.helperService.hideLoading();
             this.cartService.clearCart();
             this.helperService.showAlert('success', 'Thành công', 'gửi yêu cầu thành công');
@@ -106,5 +107,53 @@ export class CheckOutComponent implements OnInit {
             amount: amount * 100
         });
 
+    }
+
+    
+    loadvnpay() {
+
+        if (!window.document.getElementById('vnpay-script')) {
+            const s = window.document.createElement('script');
+            s.id = 'vnpay-script';
+            s.type = 'text/javascript';
+            s.src = 'https://pay.vnpay.vn/lib/vnpay/vnpay.js';
+            window.document.body.appendChild(s);
+        }
+    }
+    onclick() {
+        const req = {
+            'customerAddress': 'Số 42 Cầu Vồng, Đông Ngạc, Bắc Từ Liêm, Hà Nội',
+            'customerPhone': '0989908651',
+            'shipmentPrice': 52000,
+            'listProducts': [
+                {
+                    'productId': 2,
+                    'quantity': 2,
+                    'price': 2790000
+                },
+                {
+                    'productId': 51,
+                    'quantity': 2,
+                    'price': 3290000
+                }
+            ],
+            'amount': 6132000
+        };
+        this.apiService.getALl(req).then((x: any) => {
+            // console.log(res)
+            if (x.code === '00') {
+                if ((<any>window).vnpay) {
+                    vnpay.open({ width: 768, height: 600, url: x.data });
+                } else {
+                    location.href = x.data;
+                }
+                return false;
+
+            } else {
+                alert(x.Message);
+            }
+        }).then(()=>{
+            alert('111');
+        });
     }
 }

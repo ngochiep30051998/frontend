@@ -44,6 +44,11 @@ export const routes: Routes = [
         path: 'sighup-provider',
         canActivate: [CustomerAuthGuard],
         loadChildren: () => import('../customer/sighup-provider/sighup-provider.module').then(m => m.SighupProviderModule)
+      },
+      {
+        path: 'loading/:isCheckout',
+        canActivate: [CustomerAuthGuard],
+        loadChildren: () => import('../customer/loading/loading.module').then(m => m.LoadingModule)
       }
     ]
   },

@@ -159,7 +159,16 @@ export class ApiService {
             });
         });
     }
-
+    getALl(req) {
+        const url = 'https://smartphone-store.herokuapp.com/api/order/create-payment';
+        return new Promise((resolve, reject) => {
+            this.http.post(url, req).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            });
+        });
+    }
     registerProvider(req) {
         const url = this.url + 'provider/register-provider';
         return new Promise((resolve, reject) => {
@@ -187,17 +196,6 @@ export class ApiService {
         const url = this.url + 'provider/remove-provider';
         return new Promise((resolve, reject) => {
             this.http.request('delete', url, { body: { providerId: providerId } }).subscribe(res => {
-                resolve(res);
-            }, err => {
-                reject(err);
-            });
-        });
-    }
-
-    checkOut(req) {
-        const url = this.url + 'order/create-order';
-        return new Promise((resolve, reject) => {
-            this.http.post(url, req).subscribe(res => {
                 resolve(res);
             }, err => {
                 reject(err);
