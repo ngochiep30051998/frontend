@@ -51,13 +51,13 @@ export const navItemsAdmin: NavData[] = [
       }
     ]
   },
-  {
-    name: 'Quản lý đơn hàng',
-    url: '/buttons',
-    icon: 'icon-cursor',
-    children: [
-    ]
-  }
+  // {
+  //   name: 'Quản lý đơn hàng',
+  //   url: '/buttons',
+  //   icon: 'icon-cursor',
+  //   children: [
+  //   ]
+  // }
 ];
 
 export const navItemsSupperAdmin: NavData[] = [

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
+import { DirectiveModule } from '../../../directive/directive.module';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { ToastModule } from 'primeng/toast';
     InputTextareaModule,
     ReactiveFormsModule,
     ToastModule,
+    DirectiveModule,
     RouterModule.forChild([{ path: '', component: SighUpComponent }])
   ]
 })

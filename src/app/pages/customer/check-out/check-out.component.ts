@@ -28,7 +28,7 @@ export class CheckOutComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadStripe();
+        // this.loadStripe();
         this.loadvnpay();
     }
 
@@ -49,7 +49,7 @@ export class CheckOutComponent implements OnInit {
         try {
             const cart = this.cartService.getCartItem();
             if (!cart) {
-                this.helperService.showAlert('error', 'Thất bại', 'Không có sản phẩm nào trong rỏ hàng');
+                this.helperService.showAlert('error', 'Thất bại', 'Không có sản phẩm nào trong giỏ hàng');
                 this.helperService.hideLoading();
                 return;
             }
@@ -65,7 +65,7 @@ export class CheckOutComponent implements OnInit {
                 listProducts: listProducts
             };
             checkOutValue = { ...checkOutValue, ...this.checkoutForm.value };
-            // const res: any = await this.apiService.checkOut(checkOutValue);
+            const res: any = await this.apiService.checkOut(checkOutValue);
             this.helperService.hideLoading();
             this.cartService.clearCart();
             this.helperService.showAlert('success', 'Thành công', 'gửi yêu cầu thành công');
@@ -78,38 +78,38 @@ export class CheckOutComponent implements OnInit {
         }
     }
 
-    loadStripe() {
+    // loadStripe() {
 
-        if (!window.document.getElementById('stripe-script')) {
-            const s = window.document.createElement('script');
-            s.id = 'stripe-script';
-            s.type = 'text/javascript';
-            s.src = 'https://checkout.stripe.com/checkout.js';
-            window.document.body.appendChild(s);
-        }
-    }
-    pay(amount) {
+    //     if (!window.document.getElementById('stripe-script')) {
+    //         const s = window.document.createElement('script');
+    //         s.id = 'stripe-script';
+    //         s.type = 'text/javascript';
+    //         s.src = 'https://checkout.stripe.com/checkout.js';
+    //         window.document.body.appendChild(s);
+    //     }
+    // }
+    // pay(amount) {
 
-        const handler = (<any>window).StripeCheckout.configure({
-            key: 'pk_test_lQpl5GshLMX0U94A3D7exC7c',
-            locale: 'auto',
-            token: function (token: any) {
-                // You can access the token ID with `token.id`.
-                // Get the token ID to your server-side code for use.
-                console.log(token);
-                alert('Token Created!!');
-            }
-        });
+    //     const handler = (<any>window).StripeCheckout.configure({
+    //         key: 'pk_test_lQpl5GshLMX0U94A3D7exC7c',
+    //         locale: 'auto',
+    //         token: function (token: any) {
+    //             // You can access the token ID with `token.id`.
+    //             // Get the token ID to your server-side code for use.
+    //             console.log(token);
+    //             alert('Token Created!!');
+    //         }
+    //     });
 
-        handler.open({
-            name: 'Demo Site',
-            description: '2 widgets',
-            amount: amount * 100
-        });
+    //     handler.open({
+    //         name: 'Demo Site',
+    //         description: '2 widgets',
+    //         amount: amount * 100
+    //     });
 
-    }
+    // }
 
-    
+
     loadvnpay() {
 
         if (!window.document.getElementById('vnpay-script')) {
@@ -120,27 +120,34 @@ export class CheckOutComponent implements OnInit {
             window.document.body.appendChild(s);
         }
     }
-    onclick() {
-        const req = {
-            'customerAddress': 'Số 42 Cầu Vồng, Đông Ngạc, Bắc Từ Liêm, Hà Nội',
-            'customerPhone': '0989908651',
-            'shipmentPrice': 52000,
-            'listProducts': [
-                {
-                    'productId': 2,
-                    'quantity': 2,
-                    'price': 2790000
-                },
-                {
-                    'productId': 51,
-                    'quantity': 2,
-                    'price': 3290000
-                }
-            ],
-            'amount': 6132000
+    vnpayCheckOut() {
+        this.helperService.markFormGroupTouched(this.checkoutForm);
+        if (this.checkoutForm.invalid) {
+            return;
+        }
+
+        const cart = this.cartService.getCartItem();
+        if (!cart) {
+            this.helperService.showAlert('error', 'Thất bại', 'Không có sản phẩm nào trong giỏ hàng');
+            return;
+        }
+        this.helperService.showLoading();
+        const listProducts: any[] = [];
+        cart.forEach(element => {
+            listProducts.push({
+                productId: element.Id,
+                quantity: element.quantity,
+                price: (element.PromotionPrice ? element.PromotionPrice : element.Price)
+            });
+        });
+        let checkOutValue = {
+            listProducts: listProducts,
+            amount: this.cartService.getTotalPrice()
         };
-        this.apiService.getALl(req).then((x: any) => {
+        checkOutValue = { ...checkOutValue, ...this.checkoutForm.value };
+        this.apiService.vnPayCheckOut(checkOutValue).then((x: any) => {
             // console.log(res)
+            this.helperService.hideLoading();
             if (x.code === '00') {
                 if ((<any>window).vnpay) {
                     vnpay.open({ width: 768, height: 600, url: x.data });
@@ -152,8 +159,8 @@ export class CheckOutComponent implements OnInit {
             } else {
                 alert(x.Message);
             }
-        }).then(()=>{
-            alert('111');
+        }, err => {
+            this.helperService.hideLoading();
         });
     }
 }
