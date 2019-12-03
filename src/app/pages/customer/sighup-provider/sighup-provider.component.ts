@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { HelperService } from '../../../services/helper/helper.service';
 import * as moment from 'moment';
+import { AuthService } from '../../../services/auth/auth.service';
 @Component({
   selector: 'app-sighup-provider',
   templateUrl: './sighup-provider.component.html',
@@ -21,12 +22,14 @@ export class SighupProviderComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private messageService: MessageService,
-    public helperService: HelperService
+    public helperService: HelperService,
+    private authService: AuthService
   ) {
-    const u = JSON.parse(localStorage.getItem('userInfo'));
-    if (u && u.data && u.data.user) {
-      this.user = u.data.user;
-    }
+    // const u = JSON.parse(localStorage.getItem('userInfo'));
+    // if (u && u.data && u.data.user) {
+    //   this.user = u.data.user;
+    // }
+    this.user = this.authService.getCurrentUser();
     this.initForm();
   }
 
@@ -35,10 +38,10 @@ export class SighupProviderComponent implements OnInit {
 
   initForm() {
     this.sighUpForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
-      address: [''],
+      name: [this.user.Name, Validators.required],
+      email: [this.user.Email, Validators.required],
+      phone: [this.user.Phone, Validators.required],
+      address: [this.user.Address],
       owner: [this.user.Id, Validators.required],
       cardNumber: ['', Validators.required],
       cardDate: ['', Validators.required],
@@ -62,7 +65,10 @@ export class SighupProviderComponent implements OnInit {
       const res: any = await this.apiService.registerProvider(this.sighUpForm.value);
       this.helperService.hideLoading();
       if (res.data.providerId) {
-        this.helperService.showAlert('success', 'đăng ký thành công', `mã cửa hàng của bạn là: ${res.data.providerId}`);
+        this.helperService.showAlert('success', 'đăng ký thành công', `mã cửa hàng của bạn là: ${res.data.providerId}, chờ admin xác nhận để trỏe `);
+        setTimeout(() => {
+          this.router.navigate(['home']);
+        }, 2000);
       }
     } catch (e) {
       this.helperService.hideLoading();

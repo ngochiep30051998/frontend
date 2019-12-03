@@ -14,17 +14,18 @@
         </div>
     </div>
 </div>
-<div class="row" *ngIf="checkoutType === 'option1'">
+<div class="row">
     <div class="col-sm-12">
         <div class="card">
-            <form action="" [formGroup]="checkoutForm" method="post" (ngSubmit)="checkOut()">
-                <div class="card-header">
-                    <strong>Thanh toán</strong>
-                </div>
-                <div class="card-body">
+
+            <div class="card-header">
+                <strong>Thanh toán</strong>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="checkoutForm">
                     <div class="text-danger"
                         *ngIf="checkoutForm?.controls?.customerAddress?.errors?.required && checkoutForm?.controls?.customerAddress?.touched">
-                        Bạn phải nhập tên ngân hàng
+                        Bạn phải nhập địa chỉ người nhận
                     </div>
                     <div class="form-group">
                         <label for="nf-email">Địa chỉ người nhận</label>
@@ -45,31 +46,32 @@
                         <input type="number" disabled formControlName="shipmentPrice" class="form-control"
                             placeholder="0968958647">
                     </div>
-                    <div class="card-footer">
-                        <button class="btn btn-sm btn-primary" type="submit">Thanh toán</button>
-                        <button class="btn btn-sm btn-danger" type="reset"> Reset</button>
-                    </div>
+                </form>
 
+                <div class="card-footer">
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="icon-container">
+                                <i class="fa fa-cc-visa" style="color:navy;"></i>
+                                <i class="fa fa-cc-amex" style="color:blue;"></i>
+                                <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                                <i class="fa fa-cc-discover" style="color:orange;"></i>
+                            </div>
+                            <button class="btn btn-pill btn-danger" *ngIf="checkoutType === 'option2'"
+                                (click)="vnpayCheckOut()" type="button">Thanh
+                                toán</button>
+                            <button class="btn btn-pill btn-danger" *ngIf="checkoutType === 'option1'"
+                                type="button" (click)="checkOut()">Thanh
+                                toán</button>
+                        </div>
+                        <!--/.col-->
+                    </div>
                 </div>
-            </form>
+
+            </div>
         </div>
     </div>
     <!--/.col-->
 </div>
 <!--/.row-->
-
-
-<div class="row" *ngIf="checkoutType === 'option2'">
-    <div class="col-sm-12">
-        <div class="icon-container">
-            <i class="fa fa-cc-visa" style="color:navy;"></i>
-            <i class="fa fa-cc-amex" style="color:blue;"></i>
-            <i class="fa fa-cc-mastercard" style="color:red;"></i>
-            <i class="fa fa-cc-discover" style="color:orange;"></i>
-        </div>
-        <button class="btn btn-pill btn-danger" (click)="onclick()" type="button">Thanh toán</button>
-
-    </div>
-    <!--/.col-->
-</div>
-<div id="paypal-checkout-btn"></div>

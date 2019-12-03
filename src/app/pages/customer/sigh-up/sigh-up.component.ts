@@ -41,30 +41,18 @@ export class SighUpComponent implements OnInit {
     }
 
     async sighUp() {
-        console.log(this.sighUpForm.value)
+        console.log(this.sighUpForm.value);
         this.helperService.showLoading();
         try {
+            this.helperService.markFormGroupTouched(this.sighUpForm);
             if (this.sighUpForm.invalid) {
                 this.helperService.hideLoading();
                 this.messageService.add({ severity: 'error', summary: 'Đăng ký không thành công', detail: 'phải nhập đầy đủ thông tin' });
+                return;
             }
             const res: any = await this.apiService.sighUp(this.sighUpForm.value);
             if (res.customerId) {
                 this.messageService.add({ severity: 'success', summary: 'Đăng ký thành công' });
-                // const user = {
-                //     email: this.sighUpForm.value.email,
-                //     password: this.sighUpForm.value.password
-                // };
-                // const userInfo: any = await this.apiService.login(user);
-                // const userInfo = {
-                //     Name: this.sighUpForm.value.name,
-                //     Email: this.sighUpForm.value.email,
-                //     userId: res.customerId,
-                //     roles: [{
-                //         Name: 'Customer'
-                //     }]
-                // };
-                // localStorage.setItem('userInfo', JSON.stringify({ data: userInfo }));
                 const login: any = await this.apiService.login({
                     email: this.sighUpForm.value.email,
                     password: this.sighUpForm.value.password
@@ -77,7 +65,14 @@ export class SighUpComponent implements OnInit {
             }
         } catch (e) {
             this.helperService.hideLoading();
-            this.messageService.add({ severity: 'error', summary: 'Đăng ký không thành công', detail: e.error.message });
+            // this.messageService.add({ severity: 'error', summary: 'Đăng ký không thành công', detail: e.error.message });
+            if (e.error.errorArr) {
+                let mes = '';
+                e.error.errorArr.forEach((error, index) => {
+                  mes += (index + 1) + ' : ' + error + '|';
+                });
+                this.helperService.showAlert('error', 'đăng ký thất bại', mes);
+              }
         }
     }
 }
