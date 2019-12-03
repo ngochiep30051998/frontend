@@ -1,93 +1,4 @@
-<!-- <div class="d-flex justify-content-between content">
-    <div class="left-menu">
-        <p-megaMenu orientation="vertical" [model]="items"></p-megaMenu>
-    </div>
-    <div class="right-content">
-        <div class="d-flex">
-            <div class="p-2  flex-fill">
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </div>
-            <div class="p-2 flex-fill">
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </div>
-            <div class="p-2 flex-fill">
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex">
-            <div class="p-2  flex-fill">
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </div>
-            <div class="p-2 flex-fill">
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </div>
-            <div class="p-2 flex-fill">
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex">
-            <div class="p-2  flex-fill">
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </div>
-            <div class="p-2 flex-fill">
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </div>
-            <div class="p-2 flex-fill">
-                <div class="card">
-                    <div class="card-header">Header</div>
-                    <div class="card-body">Content</div>
-                    <div class="card-footer">Footer</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
 
-<!-- <div class="container">
-    <div class="row">
-        <div class="col">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="category.html">Category</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Sub-category</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-</div> -->
 <div class="container content">
     <div class="row">
         <div class="col-12 col-sm-3">
@@ -101,7 +12,7 @@
                 </ul>
             </div>
             <div class="card bg-light mb-3">
-                <div class="card-header bg-success text-white text-uppercase">Sản phẩm mới</div>
+                <div class="card-header bg-success text-white text-uppercase" *ngIf="listProduct.length > 0">Sản phẩm mới</div>
                 <div class="card-body">
                     <img class="img-fluid" [src]="listProduct[listProduct.length-1]?.Image" />
                     <h5 class="card-title">{{listProduct[listProduct.length-1]?.Name}}</h5>

@@ -49,33 +49,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
     ngOnInit() {
 
-        // this.items = [
-        //     {
-        //         label: 'Hoàng hà mobile',
-        //         url: '#/product-detail'
-        //     },
-        //     {
-        //         label: 'Thế giới di động'
-        //     },
-        //     {
-        //         label: 'Tech world'
-        //     },
-        //     {
-        //         label: 'Nhật Bảo mobile'
-        //     },
-        //     {
-        //         label: 'Đào Thạch Mobile'
-        //     },
-        //     {
-        //         label: 'Nhật Cường mobile'
-        //     },
-        //     {
-        //         label: 'Bảo Tuyết Mobile'
-        //     },
-        //     {
-        //         label: 'Cellphones'
-        //     }
-        // ];
     }
 
     getListMenuItem() {
@@ -84,10 +57,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         const providers = this.apiService.getAllProvider();
         Promise.all([catalogs, providers]).then((res: any) => {
             const listCatalog = res[0].data.sort((a: any, b: any) => {
-                return b.ProductAmount - a.ProductAmount
-            })
+                return b.ProductAmount - a.ProductAmount;
+            });
             this.listCatalog = listCatalog;
-            this.listProvider = res[1].data.splice(0, 8);
+            this.listProvider = res[1].data.filter(x => x.Status === 1).splice(0, 8);
             this.getProductByCatId(this.listCatalog[0].CatalogId, 'product1');
             this.getProductByCatId(this.listCatalog[1].CatalogId, 'product2');
             this.getProductByCatId(this.listCatalog[2].CatalogId, 'product3');
@@ -108,7 +81,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     getProductByCatId(id: number, productList: any) {
         this.apiService.getProductByCatalogId(id).subscribe((res: any) => {
             this.listproduct[productList] = res.data.slice(0, 9);
-            console.log(res);
 
         });
     }

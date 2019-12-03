@@ -11,7 +11,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="card bg-light mb-3">
+            <div class="card bg-light mb-3" *ngIf="listProduct.length > 0">
                 <div class="card-header bg-success text-white text-uppercase">Sản phẩm mới</div>
                 <div class="card-body">
                     <img class="img-fluid" [src]="listProduct[listProduct.length-1]?.Image" />

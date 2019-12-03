@@ -65,7 +65,7 @@ export class SighupProviderComponent implements OnInit {
       const res: any = await this.apiService.registerProvider(this.sighUpForm.value);
       this.helperService.hideLoading();
       if (res.data.providerId) {
-        this.helperService.showAlert('success', 'đăng ký thành công', `mã cửa hàng của bạn là: ${res.data.providerId}, chờ admin xác nhận để trỏe `);
+        this.helperService.showAlert('success', 'đăng ký thành công', `mã cửa hàng của bạn là: ${res.data.providerId}, chờ admin xác nhận`);
         setTimeout(() => {
           this.router.navigate(['home']);
         }, 2000);
