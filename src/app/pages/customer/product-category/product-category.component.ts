@@ -64,7 +64,7 @@ export class ProductCategoryComponent implements OnInit {
 
     getListProvider() {
         this.apiService.getAllProvider().then((res: any) => {
-            this.listProvier = res.data;
+            this.listProvier = res.data.filter(x => x.Status === 1);
         });
     }
 }
