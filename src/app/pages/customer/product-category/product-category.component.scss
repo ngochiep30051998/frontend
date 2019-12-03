@@ -1,4 +1,10 @@
 
+a {
+    text-decoration: none !important;
+    &:hover {
+        text-decoration: none !important;
+    }
+}
 .content{
     margin-top: 10px;
 }
@@ -59,10 +65,12 @@
 .product-price{
     text-decoration: line-through;
     font-size: smaller;
+    // white-space: nowrap;
 }
 
 .promotion-price{
     font-size: smaller;
+    // white-space: nowrap;
 }
 
 .top-product-price{
@@ -78,4 +86,22 @@
 }
 .card-body{
     padding-bottom: 0.15rem !important;
+}
+.card-product {
+    max-height: 510px;
+    min-height: 500px;
+
+    &:hover {
+        box-shadow: 0 0 20px rgba(0,0,0,.1);
+        z-index: 1;
+    }
+}
+.card-title {
+    font-size: 15px;
+    max-height: 56px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    a {
+        
+    }
 }

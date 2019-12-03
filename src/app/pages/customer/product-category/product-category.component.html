@@ -107,26 +107,25 @@
                     <h5 class="card-title">{{listProduct[listProduct.length-1]?.Name}}</h5>
                     <p class="card-text">Mã sản phẩm: {{listProduct[listProduct.length-1]?.SKU}}</p>
                     <span
-                        class="bloc_left_price top-product-price">{{listProduct[listProduct.length-1]?.Price| number}}</span>
+                        class="bloc_left_price top-promotion-price">{{listProduct[listProduct.length-1]?.PromotionPrice | number}}
+                        Đ</span>
                     |
                     <span
-                        class="bloc_left_price top-promotion-price">{{listProduct[listProduct.length-1]?.PromotionPrice | number}}
-                        VNĐ</span>
+                        class="bloc_left_price top-product-price">{{listProduct[listProduct.length-1]?.Price| number}} Đ</span>
                     <p class="btn btn-success btn-block" (click)="addToCart(listProduct[listProduct.length-1],1)">Thêm
-                        vào rỏ <i class="fa fa-shopping-cart"></i></p>
+                        vào giỏ <i class="fa fa-shopping-cart"></i></p>
                 </div>
             </div>
         </div>
         <div class="col">
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4" *ngFor="let product of listProduct">
-                    <div class="card">
+                    <div class="card card-product" title="{{product?.Name}}">
                         <img class="card-img-top"
                             [src]="product?.Image ? product?.Image: 'https://dummyimage.com/600x400/55595c/fff'"
                             alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title"><a [routerLink]="['/product-detail',product?.Id]"
-                                    title="View Product">{{product?.Name}}</a></h5>
+                            <h5 class="card-title"><a [routerLink]="['/product-detail',product?.Id]" >{{product?.Name}}</a></h5>
                             <p class="card-text">Mã sản phẩm: {{product?.SKU}}</p>
                             <div class="row">
                                 <div class="col">

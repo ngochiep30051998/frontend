@@ -5,7 +5,7 @@
 				<th style="width:5%">STT</th>
 				<th style="width:45%">Sản phẩm</th>
 				<th style="width:10%">Đơn giá</th>
-				<th style="width:8%">Số lượng</th>
+				<th style="width:8%; white-space: nowrap;">Số lượng</th>
 				<th style="width:22%" class="text-center">Thành tiền</th>
 				<th style="width:10%"></th>
 			</tr>
@@ -19,12 +19,12 @@
 								class="img-responsive product-image" />
 						</div>
 						<div class="col-sm-10 product-detail">
-							<h4 class="nomargin">{{product?.Name}}</h4>
+							<h4 class="nomargin title">{{product?.Name}}</h4>
 							<p>Mã sản phẩm: {{product?.SKU}}</p>
 						</div>
 					</div>
 				</td>
-				<td data-th="Price">{{(product?.PromotionPrice ? product?.PromotionPrice : product?.Price) | number}}
+				<td data-th="Price" style="white-space: nowrap;">{{(product?.PromotionPrice ? product?.PromotionPrice : product?.Price) | number}}
 					VNĐ</td>
 				<td data-th="Quantity">
 					<input type="number" class="form-control text-center" (change)="addProduct($event,i)" min="0"
@@ -50,7 +50,7 @@
 				<td><a href="#" class="btn btn-warning" (click)="gotoPage('home')"><i class="fa fa-angle-left"></i> Tiếp
 						tục mua sắm</a></td>
 				<!-- <td class="hidden-xs"></td> -->
-				<td colspan="2" class="hidden-xs text-center"><strong>Tổng hóa đơn: {{cartService.getTotalPrice() | number}} VNĐ</strong></td>
+				<td colspan="2" class="hidden-xs text-center"><strong>Tổng hóa đơn:<br /> {{cartService.getTotalPrice() | number}} VNĐ</strong></td>
 				<td ><a (click)="gotoPage('checkout')" class="btn btn-success btn-block" *ngIf="cart?.length >0">Thanh toán <i
 							class="fa fa-angle-right"></i></a></td>
 			</tr>

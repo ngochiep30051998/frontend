@@ -49,7 +49,7 @@ export class CheckOutComponent implements OnInit {
         try {
             const cart = this.cartService.getCartItem();
             if (!cart) {
-                this.helperService.showAlert('error', 'Thất bại', 'Không có sản phẩm nào trong rỏ hàng');
+                this.helperService.showAlert('error', 'Thất bại', 'Không có sản phẩm nào trong giỏ hàng');
                 this.helperService.hideLoading();
                 return;
             }

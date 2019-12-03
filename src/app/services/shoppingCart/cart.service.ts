@@ -23,7 +23,7 @@ export class CartService {
             this.cart.push(product);
         }
         this.updateCart();
-        this.helperService.showAlert('success','Thành công','Sản phẩm đã được thêm vào rỏ hàng');
+        this.helperService.showAlert('success','Thành công','Sản phẩm đã được thêm vào giỏ hàng');
         // localStorage.setItem('cart', JSON.stringify(this.cart));
         // this.cartSubject.next(this.cart);
     }

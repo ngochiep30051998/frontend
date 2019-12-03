@@ -32,11 +32,34 @@
 }
 .add-to-cart-btn{
     height: 25px;
+    width: 40px;
 }
 .product-price{
     text-decoration: line-through;
     color: red;
+    font-size: 13px;
+    font-weight: 300;
+    display: block;
 }
 .promotion-price{
-    font-size: 20px;
+    font-size: 15px;
+    font-weight: 600;
 }
+.car-title {
+    max-height: 42px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.car-subtitle {
+    max-width: 230px;
+}
+.product-percent {
+    font-size: 12px;
+    margin-left: 10px;
+    color: #787878;
+}
+.car-details {
+    margin: 0 5px;
+    cursor: pointer;
+}
+

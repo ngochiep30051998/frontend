@@ -5,28 +5,24 @@
     <div class="right-content">
         <carousel [interval]="false">
             <slide>
-                <img src="https://lorempixel.com/900/500/technics/1" alt="First slide"
-                    style="display: block; width: 100%;">
-                <div class="carousel-caption d-none d-md-block">
+                <img src="https://salt.tikicdn.com/cache/w885/ts/banner/8e/1b/c1/c87aadb34e01b278f9d37eb85b15e818.jpg"
+                    alt="slide" style="display: block; width: 100%;">
+                <!-- <div class="carousel-caption d-none d-md-block">
                     <h3>First slide label</h3>
                     <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                </div>
+                </div> -->
             </slide>
             <slide>
-                <img src="https://lorempixel.com/900/500/technics/2" alt="Second slide"
-                    style="display: block; width: 100%;">
-                <div class="carousel-caption d-none d-md-block">
-                    <h3>Second slide label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
+                <img src="https://salt.tikicdn.com/cache/w885/ts/banner/31/dd/8a/5af4df45098333f9e7b753b3f3dbe970.jpg"
+                    alt="slide" style="display: block; width: 100%;">
             </slide>
             <slide>
-                <img src="https://lorempixel.com/900/500/technics/3" alt="Third slide"
-                    style="display: block; width: 100%;">
-                <div class="carousel-caption d-none d-md-block">
-                    <h3>Third slide label</h3>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                </div>
+                <img src="https://salt.tikicdn.com/cache/w885/ts/banner/b1/57/89/cd37fbc4972c74aa9902ea21762567b6.jpg"
+                    alt="slide" style="display: block; width: 100%;">
+            </slide>
+            <slide>
+                <img src="https://salt.tikicdn.com/cache/w885/ts/banner/ac/f0/78/9f057f0bd6d574c00854fba2adcb82a9.jpg"
+                    alt="slide" style="display: block; width: 100%;">
             </slide>
         </carousel>
     </div>
@@ -43,22 +39,25 @@
         <h3 class="list-header">{{listproduct?.product1[0]?.Brand}}</h3>
     </p-header>
     <ng-template let-product pTemplate="item">
-        <div class="car-details">
+        <div class="car-details" title="{{product?.Name}}">
             <div class="p-grid p-nogutter">
                 <div class="p-col-12">
                     <img [src]="product?.Image" class="product-image" />
                 </div>
                 <div class="p-col-12 car-data">
                     <div class="car-title">{{product?.Name}}</div>
-                    <div class="car-subtitle"><span class="product-price">{{product?.Price | number}} VNĐ</span> | <span
-                            class="promotion-price">{{product?.PromotionPrice | number}} VNĐ</span></div>
-
+                    <div class="car-subtitle">
+                        <span class="promotion-price">{{product?.PromotionPrice | number}} VNĐ</span>
+                        <span class="product-percent">-{{product?.PromotionPercent | number}}%</span>
+                        <span class="product-price">{{product?.Price | number}} VNĐ</span>
+                    </div>
                     <div class="car-buttons">
-                        <button (click)="addToCart(product,1)" pButton type="button"
+                        <button (click)="addToCart(product,1)" pButton type="button" title="Thêm vào giỏ hàng"
                             class="ui-button-raised ui-button-warning add-to-cart-btn">
                             <i class="fa fa-shopping-cart"></i>
                         </button>
-                        <button (click)="gotoProductDetail(product?.Id)" pButton type="button" class="ui-button-raised ui-button-secondary add-to-cart-btn">
+                        <button (click)="gotoProductDetail(product?.Id)" pButton type="button" title="Xem chi tiết"
+                            class="ui-button-raised ui-button-secondary add-to-cart-btn">
                             <i class="fa fa-eye"></i>
                         </button>
                     </div>
@@ -82,15 +81,18 @@
                 </div>
                 <div class="p-col-12 car-data">
                     <div class="car-title">{{product?.Name}}</div>
-                    <div class="car-subtitle"><span class="product-price">{{product?.Price | number}} VNĐ</span> | <span
-                            class="promotion-price">{{product?.PromotionPrice | number}} VNĐ</span></div>
-
+                    <div class="car-subtitle">
+                        <span class="promotion-price">{{product?.PromotionPrice | number}} VNĐ</span>
+                        <span class="product-percent">-{{product?.PromotionPercent | number}}%</span>
+                        <span class="product-price">{{product?.Price | number}} VNĐ</span>
+                    </div>
                     <div class="car-buttons">
-                        <button (click)="addToCart(product,1)" pButton type="button"
+                        <button (click)="addToCart(product,1)" pButton type="button" title="Thêm vào giỏ hàng"
                             class="ui-button-raised ui-button-warning add-to-cart-btn">
                             <i class="fa fa-shopping-cart"></i>
                         </button>
-                        <button (click)="gotoProductDetail(product?.Id)" pButton type="button" class="ui-button-raised ui-button-secondary add-to-cart-btn">
+                        <button (click)="gotoProductDetail(product?.Id)" pButton type="button" title="Xem chi tiết"
+                            class="ui-button-raised ui-button-secondary add-to-cart-btn">
                             <i class="fa fa-eye"></i>
                         </button>
                     </div>
@@ -100,6 +102,41 @@
     </ng-template>
 </p-carousel>
 
+<p-carousel *ngIf="listproduct?.product3.length>1" [value]="listproduct?.product3" styleClass="custom-carousel"
+    [numVisible]="4" [numScroll]="1" [circular]="true" [autoplayInterval]="3000"
+    [responsiveOptions]="responsiveOptions">
+    <p-header>
+        <h3 class="list-header">{{listproduct?.product3[0]?.Brand}}</h3>
+    </p-header>
+    <ng-template let-product pTemplate="item">
+        <div class="car-details">
+            <div class="p-grid p-nogutter">
+                <div class="p-col-12">
+                    <img [src]="product?.Image" class="product-image" />
+                </div>
+                <div class="p-col-12 car-data">
+                    <div class="car-title">{{product?.Name}}</div>
+                    <div class="car-subtitle">
+                        <span class="promotion-price">{{product?.PromotionPrice | number}} VNĐ</span>
+                        <span class="product-percent">-{{product?.PromotionPercent | number}}%</span>
+                        <span class="product-price">{{product?.Price | number}} VNĐ</span>
+                    </div>
+                    <div class="car-buttons">
+                        <button (click)="addToCart(product,1)" pButton type="button" title="Thêm vào giỏ hàng"
+                            class="ui-button-raised ui-button-warning add-to-cart-btn">
+                            <i class="fa fa-shopping-cart"></i>
+                        </button>
+                        <button (click)="gotoProductDetail(product?.Id)" pButton type="button" title="Xem chi tiết"
+                            class="ui-button-raised ui-button-secondary add-to-cart-btn">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-carousel>
+<!-- 
 <div *ngIf="listproduct?.product3.length>1">
     <p-carousel [value]="listproduct?.product3" styleClass="custom-carousel" [numVisible]="4" [numScroll]="1"
         [circular]="true" [autoplayInterval]="3000" [responsiveOptions]="responsiveOptions">
@@ -114,15 +151,19 @@
                     </div>
                     <div class="p-col-12 car-data">
                         <div class="car-title">{{product?.Name}}</div>
-                        <div class="car-subtitle"><span class="product-price">{{product?.Price | number}} VNĐ</span> |
-                            <span class="promotion-price">{{product?.PromotionPrice | number}} VNĐ</span></div>
+                        <div class="car-subtitle">
+                            <span class="product-price">{{product?.Price | number}} VNĐ</span>
+                            <span class="product-percent">{{product?.PromotionPercent | number}}%</span>
+                            <span class="promotion-price">{{product?.PromotionPrice | number}} VNĐ</span>
+                        </div>
 
                         <div class="car-buttons">
                             <button (click)="addToCart(product,1)" pButton type="button"
                                 class="ui-button-raised ui-button-warning add-to-cart-btn">
                                 <i class="fa fa-shopping-cart"></i>
                             </button>
-                            <button (click)="gotoProductDetail(product?.Id)" pButton type="button" class="ui-button-raised ui-button-secondary add-to-cart-btn">
+                            <button (click)="gotoProductDetail(product?.Id)" pButton type="button"
+                                class="ui-button-raised ui-button-secondary add-to-cart-btn">
                                 <i class="fa fa-eye"></i>
                             </button>
                         </div>
@@ -131,4 +172,4 @@
             </div>
         </ng-template>
     </p-carousel>
-</div>
+</div> -->

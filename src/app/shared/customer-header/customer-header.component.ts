@@ -111,7 +111,10 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
     getListCatalog() {
         this.helperService.showLoading();
         this.apiService.getAllCatalog().then((res: any) => {
-            this.listCatalog = res.data.slice(0, 7);
+            const listCatalog = res.data.sort((a: any, b: any) => {
+                return b.ProductAmount - a.ProductAmount
+            })
+            this.listCatalog = listCatalog.slice(0, 7);
             this.listCatalog.forEach((cat) => {
                 const item: MenuItem = {
                     label: cat.Brand,

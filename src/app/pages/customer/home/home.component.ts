@@ -83,7 +83,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         const catalogs = this.apiService.getAllCatalog();
         const providers = this.apiService.getAllProvider();
         Promise.all([catalogs, providers]).then((res: any) => {
-            this.listCatalog = res[0].data;
+            const listCatalog = res[0].data.sort((a: any, b: any) => {
+                return b.ProductAmount - a.ProductAmount
+            })
+            this.listCatalog = listCatalog;
             this.listProvider = res[1].data.splice(0, 8);
             this.getProductByCatId(this.listCatalog[0].CatalogId, 'product1');
             this.getProductByCatId(this.listCatalog[1].CatalogId, 'product2');
