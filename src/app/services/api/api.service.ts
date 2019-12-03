@@ -212,4 +212,8 @@ export class ApiService {
             });
         });
     }
+    searchProduct(q) {
+        const url = this.url + 'product/search-product?search=' + q;
+        return this.http.get(url);
+    }
 }

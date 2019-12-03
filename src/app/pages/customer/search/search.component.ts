@@ -1,31 +1,31 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api/api.service';
 import { HelperService } from '../../../services/helper/helper.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CartService } from '../../../services/shoppingCart/cart.service';
-import { AuthService } from '../../../services/auth/auth.service';
 import { forkJoin } from 'rxjs';
+import { AuthService } from '../../../services/auth/auth.service';
+import { CartService } from '../../../services/shoppingCart/cart.service';
 
 @Component({
-    selector: 'app-product-by-provider',
-    templateUrl: './product-by-provider.component.html',
-    styleUrls: ['./product-by-provider.component.scss']
+    selector: 'app-search',
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.scss']
 })
-export class ProductByProviderComponent implements OnInit {
+export class SearchComponent implements OnInit {
+    public searchStr: any;
     public listProduct: any = [];
-    public providerId: any;
     public listProvier: any = [];
     constructor(
-        private apiService: ApiService,
-        private helperService: HelperService,
-        private router: Router,
-        private activatedRoute: ActivatedRoute,
-        public cartService: CartService,
-        public authService: AuthService
+        public router: Router,
+        public activatedRoute: ActivatedRoute,
+        public apiService: ApiService,
+        public helperService: HelperService,
+        public authService: AuthService,
+        public cartService: CartService
     ) {
-
         this.activatedRoute.paramMap.subscribe((res: any) => {
-            this.providerId = res.get('providerId');
+            this.searchStr = res.get('searchParam');
+            console.log(this.searchStr);
             this.getData();
         });
     }
@@ -36,7 +36,6 @@ export class ProductByProviderComponent implements OnInit {
     addToCart(product: any, quantity: number) {
         if (this.authService.isCustomer()) {
             this.cartService.addToCart(product, quantity);
-            console.log(product);
         } else {
             this.helperService.showAlert('error', 'Bạn phải đăng nhập trước');
             return;
@@ -48,7 +47,7 @@ export class ProductByProviderComponent implements OnInit {
     }
     getData() {
         this.helperService.showLoading();
-        const listProduct = this.apiService.getProductByProviderId(this.providerId);
+        const listProduct = this.apiService.searchProduct(this.searchStr);
         const listProvider = this.apiService.getAllProvider();
         forkJoin([listProduct, listProvider]).subscribe((res: any) => {
             this.listProduct = res[0].data;
@@ -58,6 +57,7 @@ export class ProductByProviderComponent implements OnInit {
         }, err => {
             this.helperService.hideLoading();
             console.log(err);
-        })
+        });
     }
 }
+

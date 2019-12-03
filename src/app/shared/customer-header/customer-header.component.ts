@@ -26,6 +26,7 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
         animated: true
     };
     public listCatalog = [];
+    public searchStr = '';
     constructor(
         public modalService: BsModalService,
         private formBuilder: FormBuilder,
@@ -112,8 +113,8 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
         this.helperService.showLoading();
         this.apiService.getAllCatalog().then((res: any) => {
             const listCatalog = res.data.sort((a: any, b: any) => {
-                return b.ProductAmount - a.ProductAmount
-            })
+                return b.ProductAmount - a.ProductAmount;
+            });
             this.listCatalog = listCatalog.slice(0, 7);
             this.listCatalog.forEach((cat) => {
                 const item: MenuItem = {
@@ -127,6 +128,10 @@ export class CustomerHeaderComponent implements OnInit, OnDestroy {
         }).catch(err => {
             this.helperService.hideLoading();
         });
+    }
+
+    search() {
+        this.router.navigate(['search', this.searchStr]);
     }
     get f() { return this.loginForm.controls; }
     ngOnDestroy() {

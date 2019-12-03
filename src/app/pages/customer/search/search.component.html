@@ -5,8 +5,7 @@
                 <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Cửa hàng khác
                 </div>
                 <ul class="list-group category_block">
-                    <li class="list-group-item" *ngFor="let provider of listProvier" 
-                    [ngClass]="{'active': provider?.Id == providerId}">
+                    <li class="list-group-item" *ngFor="let provider of listProvier">
                         <a [routerLink]="['/provider',provider?.Id]" >{{provider?.Name}}</a>
                     </li>
                 </ul>

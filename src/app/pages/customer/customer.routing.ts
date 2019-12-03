@@ -36,6 +36,10 @@ export const routes: Routes = [
         loadChildren: () => import('../customer/shopping-cart/shopping-cart.module').then(m => m.ShoppingCartModule)
       },
       {
+        path: 'search/:searchParam',
+        loadChildren: () => import('../customer/search/search.module').then(m => m.SearchModule)
+      },
+      {
         path: 'checkout',
         canActivate: [CustomerAuthGuard],
         loadChildren: () => import('../customer/check-out/check-out.module').then(m => m.CheckOutModule)
